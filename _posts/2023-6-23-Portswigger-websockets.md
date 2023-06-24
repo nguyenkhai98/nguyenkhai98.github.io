@@ -61,7 +61,7 @@ Lần này payload đã không bị block. Tuy nhiên, làm thế nào để vie
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/d52a8401-c478-4374-b1ed-fc5e0a3db5f2)
 
-Tiếp tục thực hiện như vậy, cuối cùng trình duyệt đã hiển thị thông báo **Lab Resolved**.
+Tiếp tục thực hiện như vậy, cuối cùng trình duyệt đã hiển thị thông báo **Lab Solved**.
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/a92c0ce1-fe3a-4f53-b410-97079d20be91)
 
