@@ -65,3 +65,15 @@ Tiếp tục thực hiện như vậy, cuối cùng trình duyệt đã hiển t
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/a92c0ce1-fe3a-4f53-b410-97079d20be91)
 
+
+## 3. Lab: Cross-site WebSocket hijacking
+
+* Content:
+```
+This online shop has a live chat feature implemented using WebSockets.
+
+To solve the lab, use the exploit server to host an HTML/JavaScript payload that uses a cross-site WebSocket hijacking attack to exfiltrate the victim's chat history, then use this gain access to their account.
+
+NOTE:
+To prevent the Academy platform being used to attack third parties, our firewall blocks interactions between the labs and arbitrary external systems. To solve the lab, you must use the provided exploit server and/or Burp Collaborator's default public server.
+```
