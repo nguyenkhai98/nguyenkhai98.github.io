@@ -109,6 +109,8 @@ Portswigger đã cung cấp cho chúng ta server exploit để gửi payload đ�
     };
 </script>
 ```
-Sau khi deploy nội dung đến cho victim, đợi 1 khoảng thời gian sẽ thu được 1 loạt HTTP Request có Body chứa các Message cũ của Victim chat với Server. Trong đó có một nội dung chat chứa username/password của user carlos:
+Sau khi deploy nội dung đến cho victim, đợi 1 khoảng thời gian sẽ thu được 1 loạt HTTP Request có Body chứa các Message cũ của Victim chat với Server. Trong đó có một nội dung chat chứa username/password của user **carlos**:
 
 <img width="449" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/8bd1e2e8-7f4f-43b9-bf2b-b91c1dba6e17">
+
+Sử dụng user/pass thu được ở trên và đăng nhập vào hệ thống => LAB SOLVED!
