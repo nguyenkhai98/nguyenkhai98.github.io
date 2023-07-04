@@ -209,6 +209,7 @@ Content-Length: 18
 
 x=1POST / HTTP/1.1
 ```
+- `Content-Length: 18` = số ký tự của `x=1POST / HTTP/1.1`
 
 <img width="479" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/c9dce484-9eaf-40a5-9d59-fb9a60f608f0">
 
