@@ -69,3 +69,17 @@ x=1
 
 <img width="623" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/1bbb7951-f460-4787-98ae-c1ee22e921b0">
 
+***
+
+## 3. Lab: HTTP request smuggling, obfuscating the TE header
+
+* Content:
+```
+This lab involves a front-end and back-end server, and the two servers handle duplicate HTTP request headers in different ways. The front-end server rejects requests that aren't using the GET or POST method.
+
+To solve the lab, smuggle a request to the back-end server, so that the next request processed by the back-end server appears to use the method GPOST.
+```
+
+* Exploit:
+
+
