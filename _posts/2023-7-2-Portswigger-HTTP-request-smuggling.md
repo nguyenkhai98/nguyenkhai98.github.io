@@ -287,5 +287,7 @@ Content-Length: 18
 a=b
 ```
 <img width="484" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/4db05e14-49ad-4ea9-a7b8-55c8b842cec8">
+
 Lab Solved!
+
 <img width="593" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/f60dbfbf-97ce-4d95-a902-b8652472932f">
