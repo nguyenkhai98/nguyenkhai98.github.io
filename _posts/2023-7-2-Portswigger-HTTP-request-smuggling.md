@@ -478,6 +478,7 @@ To solve the lab, smuggle a request to the back-end server that causes the next 
 - Xác định vị trí mắc lỗi XSS:
 
 <img width="480" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/3c87706e-69d8-4cc8-a7e7-b3706a2f04f5">
+
 => Truyền vị trí mắc lõi vào vào Smuggling Request:
 
 <img width="477" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/f91d859b-def3-4dea-931d-61d06a739227">
