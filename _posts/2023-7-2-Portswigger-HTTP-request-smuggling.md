@@ -462,3 +462,16 @@ Sau 1 vài request, thu được nội dung như sau:
 Sử dụng cookie trên để login vào user vicim và Resolve Lab:
 
 <img width="385" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/2ede167e-5d05-4653-8ea6-faa62ee2d46b">
+
+***
+## 10. Lab: Exploiting HTTP request smuggling to deliver reflected XSS
+* Content:
+```
+This lab involves a front-end and back-end server, and the front-end server doesn't support chunked encoding.
+
+The application is also vulnerable to reflected XSS via the User-Agent header.
+
+To solve the lab, smuggle a request to the back-end server that causes the next user's request to receive a response containing an XSS exploit that executes alert(1).
+```
+* Exploit:
+
