@@ -107,7 +107,7 @@ Theo dõi hành vi thực hiện thao tác login hệ thống:
 - Thực hiện logout, từ lần đăng nhập thứ 2 thì hệ thống tự động login chúng ta vào bằng tài khoản đã đăng nhập trước đó (Ko bắt nhập lại username/password nữa)
 
 Ngoài ra theo dõi trên BurpSuite ta thấy:
-- Ngay sau 1 request `/auth?client_id=...` sẽ là request đến `/oauth-callback?code=...`
+- Kể từ lần đăng nhập thứ 2, ngay sau 1 request `/auth?client_id=...` sẽ là request đến `/oauth-callback?code=...`
 
 <img width="394" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/9fd4251f-9014-4f85-807d-c7cef8f53eea">
 
