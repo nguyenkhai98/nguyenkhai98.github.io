@@ -45,7 +45,47 @@ Copy request được Burp Generate ra dán vào trình duyệt, ta thấy đã 
 
 <img width="605" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/5a8b88b5-74e0-4954-be66-01c08701e827">
 
+***
+## 2. Lab: Forced OAuth profile linking
 
+* Content:
+```
+This lab gives you the option to attach a social media profile to your account so that you can log in via OAuth instead of using the normal username and password. Due to the insecure implementation of the OAuth flow by the client application, an attacker can manipulate this functionality to obtain access to other users' accounts.
+
+To solve the lab, use a CSRF attack to attach your own social media profile to the admin user's account on the blog website, then access the admin panel and delete carlos.
+
+The admin user will open anything you send from the exploit server and they always have an active session on the blog website.
+
+You can log in to your own accounts using the following credentials:
+
+Blog website account: wiener:peter
+Social media profile: peter.wiener:hotdog
+```
+* Exploit:
+
+Giao diện login cho chúng ta 2 options: (Login bằng account local hoặc social media account)
+
+<img width="369" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/4d9e12df-f09a-4603-85b8-fb780702bacc">
+
+- Khi thực hiện login bằng account local thì sau khi login thành công sẽ có thêm 1 tùy chọn là "Attach a social profile" => Tức là gắn account local hiện tại với một tài khoản social media. Burpsuite bắt được 2 requests bao gồm Request đến OAuth để xác minh Social Media Account và Request đến `/oauth-linking?code=k3pEgFyxRLJQBs9GGo30g8K4xlKpPd4dtDMjyBuB763` (Nội dung đoạn code kia là ngẫu nhiên, dự đoán đoạn code trên tương ứng với tài khoản local mà đang request attach)
+
+<img width="461" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/62fbe2f0-71b5-4d36-bf86-8ed97efb8632">
+
+- Khi thực hiện login bằng social media account thì Client Application sẽ thực hiện request đến OAuth Service Provider
+
+<img width="460" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/d6251c61-8710-44b7-8bf9-7846faa74386">
+
+Quan sát thấy nội dung Request OAuth không có parametter **state** (Biến này có vai trò như CSRF Token trong việc xác minh các request giữa Client Aplication và OAuth Services Provider) => Có thể bị hacker lợi dụng.
+
+Thực hiện kịch bản tấn công bằng cách sau:
+1. Call đến tính năng "Attach a social profile", bật chế độ Burp Intercept On, copy lại URL gọi đến `/oauth-linking?code=xxx` (bao gồm cả mã code) => Sau đó drop gói tin này.
+2. Logout khỏi tài khoản hiện tại.
+3. Chuẩn bị 1 form CSRF trên Exploit Server với nội dung như bên dưới rồi Deliver to Victim:
+```<iframe src="https://YOUR-LAB-ID.web-security-academy.net/oauth-linking?code=STOLEN-CODE"></iframe>```
+4. Đợi 1 thời gian và truy cập lại ứng dụng, chọn Login with Social Media Account.
+5. Sau khi truy cập bằng Social Media thì thấy tài khoản Social của chúng ta đã được gắn với Account victim (Administrator). Thực hiện xóa Carlos => Lab Solved!
+
+<img width="619" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/25aa6234-25b6-4ce4-ba37-ffaefcc3edce">
 
 
 
