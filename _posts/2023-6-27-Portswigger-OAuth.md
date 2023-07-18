@@ -108,10 +108,13 @@ Theo dõi hành vi thực hiện thao tác login hệ thống:
 
 Ngoài ra theo dõi trên BurpSuite ta thấy:
 - Ngay sau 1 request `/auth?client_id=...` sẽ là request đến `/oauth-callback?code=...`
+
 <img width="394" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/9fd4251f-9014-4f85-807d-c7cef8f53eea">
 
 - Khi thực hiện request đến `/auth?client_id=...` thì giá trị của tham số `redirect_uri` sẽ là địa chỉ link chuyển hướng trình duyệt của người dùng đến ở request sau đó.
+
 <img width="463" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/84d85187-63c1-4d01-b36a-6135afe191ec">
+
 - Request này không chịu bất kỳ một sự kiểm soát/kiểm tra nào, thực hiện gửi một vài Craft Request qua Repeater BurpSuite thì thấy đều thực hiện chuyển hướng người dùng sang link chỉ định trong `redirect_uri` kèm theo giá trị `code`.
 
 <img width="493" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/5062ad0d-6ba7-4b95-9d3d-62e68944ed43">
