@@ -133,5 +133,35 @@ Ngoài ra theo dõi trên BurpSuite ta thấy:
 - Thực hiện xóa user Carlos => LAB Solved!
 <img width="606" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/651a0dc9-751a-4a4e-b98a-1af2a37220d9">
 
+***
+## 4. Lab: Stealing OAuth access tokens via an open redirect
+* Content:
+```
+This lab uses an OAuth service to allow users to log in with their social media account. Flawed validation by the OAuth service makes it possible for an attacker to leak access tokens to arbitrary pages on the client application.
 
+To solve the lab, identify an open redirect on the blog website and use this to steal an access token for the admin user's account. Use the access token to obtain the admin's API key and submit the solution using the button provided in the lab banner.
 
+Note
+You cannot access the admin's API key by simply logging in to their account on the client application.
+
+The admin user will open anything you send from the exploit server and they always have an active session with the OAuth service.
+
+You can log in via your own social media account using the following credentials: wiener:peter.
+```
+* Exploit:
+
+Bắt request trên BurpSuite và thực hiện thao tác các bước lần lượt:
+- Login vào tài khoản => Lần đầu thấy cần nhập username/password
+- Logout khỏi tài khoản
+- Login vào tài khoản => Từ lần thứ 2 trở đi không cần nhập thông tin username/password
+
+Quan sát request trên Burp:
+- Ở lần login thứ 2 trở đi thì Request đến `/auth?client_id=...` sẽ redirect trình duyệt của chúng ta đến link trong parametter `redirect_uri` kèm theo value  token của user (user đã login lần 1 trước đó)
+
+<img width="460" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/2891e680-48ef-4096-9c21-7155490f580f">
+
+- Ở link `/me`, sử dụng Token vừa nhận được sẽ nhận được response chứa thông tin api key của user:
+
+<img width="461" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/9c129f69-a6ab-4683-86cd-425092defdf9">
+
+- Thử nghiệm thanh đổi giá trị của parametter `redirect_uri` trong request 1 ta xác nhận thấy nếu thay đổi hostname hoặc đường dẫn uri không bắt đầu bằng `oauth-callback` thì request sẽ bị chặn.
