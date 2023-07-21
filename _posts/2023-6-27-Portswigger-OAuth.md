@@ -249,12 +249,30 @@ Thêm đoạn code sau bên dưới để trigger người dùng sau khi truy c�
 ```
 
 Sau khi Store payload và gửi đến victim => Check access log sẽ thấy dữ liệu access_token:
+
 <img width="552" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/86d2bcb6-8adc-495d-bd63-d99676d5dd9a">
 
 Sử dụng token đó truy cập vào link `/me` (tương tự lab trước):
+
 <img width="486" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/830ee4e1-9fc4-4390-8679-180bd467d12b">
 
 Sau khi lấy đc thông tin apikey, tực hiện submit và LAB Solved!
+
 <img width="594" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/23566d32-39a8-4ca4-bf0e-bd9899b72c37">
 
+***
+## 6. Lab: SSRF via OpenID dynamic client registration
+
+* Content:
+```
+This lab allows client applications to dynamically register themselves with the OAuth service via a dedicated registration endpoint. Some client-specific data is used in an unsafe way by the OAuth service, which exposes a potential vector for SSRF.
+
+To solve the lab, craft an SSRF attack to access http://169.254.169.254/latest/meta-data/iam/security-credentials/admin/ and steal the secret access key for the OAuth provider's cloud environment.
+
+You can log in to your own account using the following credentials: wiener:peter
+
+Note
+To prevent the Academy platform being used to attack third parties, our firewall blocks interactions between the labs and arbitrary external systems. To solve the lab, you must use Burp Collaborator's default public server.
+```
+* Exploit:
 
