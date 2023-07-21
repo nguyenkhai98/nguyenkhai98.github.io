@@ -276,3 +276,33 @@ To prevent the Academy platform being used to attack third parties, our firewall
 ```
 * Exploit:
 
+- Thực hiện request đến `.well-known/openid-configuration` để truy cập vào thông tin cấu hình của openid => Xác định được link `registration` ở `/reg`
+
+<img width="462" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/26588686-4144-4002-988b-2340a7ded748">
+
+- Thực hiện gửi request POST đến `/reg`, truyền lên thông tin dạng JSON như sau:
+
+```
+{
+    "redirect_uris" : [
+        "http://abc.com/"
+    ],
+"logo_uri": "http://169.254.169.254/latest/meta-data/iam/security-credentials/admin/"
+}
+```
+Ứng dụng sẽ trả về thông báo đăng ký thành công, kèm theo thông tin của "client_id"
+
+<img width="493" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/f5bc37a1-eb78-4c15-b626-dec37f5ad0d0">
+
+- Lý do truyền vào giá trị `logo_uri` là do khi bắt request trên Burp, ta quan sát được hành vi có một request đến link dạng `/client/<client-id>/logo` để yêu cầu OAuth Server request đến link logo của client:
+
+<img width="459" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/09c2bbc8-e93e-45e9-acf7-cea4b6ab2608">
+
+=> Ta lợi dung link chỗ `logo_uri` này để khai thác tấn công SSRF, lợi dụng OAuth Server gửi request đến `http://169.254.169.254/latest/meta-data/iam/security-credentials/admin/` như đầu bài yêu cầu.
+
+- Kích hoạt việc OAuth Server gửi request trên bằng cách call request đến link `/client/<client-id>/logo` với Client_id thu được ở bước đăng ký Client.
+
+<img width="490" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/19fc8508-b3a6-4d51-a4be-d7d29be501fd">
+
+=> Thu được SecretKeyID và LAB Solved!
+
