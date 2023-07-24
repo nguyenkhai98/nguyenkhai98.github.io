@@ -153,3 +153,24 @@ Tip
 We recommend familiarizing yourself with how to work with JWTs in Burp Suite before attempting this lab.
 ```
 * Exploit:
+
+Thực hiện gen mới khóa RSA trong tab `JWT Editor Keys`:
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/0e54be4d-753d-4757-a2a1-a670a164af84)
+
+Chuột phải vào key vừa tạo chọn `Copy Public Key as JWT` => Paste nội dung vào Server Exploit:
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/7157777b-48ed-4209-aed7-4dc77ca6f5f3)
+
+Sửa payload các thông tin sau trong tab `JSON Web Token`, ấn vào Sign => Chọn ký với Khóa RSA vừa tạo. Send Payload, xác nhận đã vào được link `/admin`:
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/a1cb545f-51b7-421a-a8b5-254717e6b113)
+
+Thực hiện xóa User carlos:
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/94dfbbd5-7bc0-498d-b28f-4e78efa27c82)
+
+=> LAB Solved!
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/f21e2220-51d1-4451-8d86-4020968dbcf6)
+
