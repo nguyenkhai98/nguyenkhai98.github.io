@@ -95,3 +95,61 @@ Thực hiện xóa user Carlos
 Lab Solved!
 
 <img width="588" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/e6ea0d3d-183e-41d4-bde1-e81fe093007c">
+
+***
+
+## 4. Lab: JWT authentication bypass via jwk header injection
+
+* Content:
+```
+This lab uses a JWT-based mechanism for handling sessions. The server supports the jwk parameter in the JWT header. This is sometimes used to embed the correct verification key directly in the token. However, it fails to check whether the provided key came from a trusted source.
+
+To solve the lab, modify and sign a JWT that gives you access to the admin panel at /admin, then delete the user carlos.
+
+You can log in to your own account using the following credentials: wiener:peter
+
+Tip
+We recommend familiarizing yourself with how to work with JWTs in Burp Suite before attempting this lab.
+```
+* Exploit:
+
+Generate một key RSA new:
+
+<img width="450" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/68af6119-61a9-48b6-8751-6d86cdaf795e">
+
+Chuyển sang tab Repeater, chọn `JSON Web Token` => `Attacke` => `Embedded JWK`
+
+<img width="479" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/bcc28ce4-fdd3-49dd-8db4-ca1264378931">
+
+Chọn key RSA vừa tạo ở bước trên, click OK.
+
+<img width="169" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/785e5316-6528-4bbf-9879-55763c3b54e7">
+
+Send Request => Đã truy cập được vào link `/admin`
+
+<img width="481" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/f1c8b027-2ca8-43cc-9b22-59320f426acc">
+
+Tiếp tục thực hiện xóa user Carlos:
+
+<img width="479" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/f29879bf-af5a-4794-8b01-a1ff24deceeb">
+
+Lab Solved!
+
+<img width="586" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/aa74e89b-6748-4127-9ff8-9ad7d870c90f">
+
+***
+
+## 5. Lab: JWT authentication bypass via jku header injection
+
+* Content:
+```
+This lab uses a JWT-based mechanism for handling sessions. The server supports the jku parameter in the JWT header. However, it fails to check whether the provided URL belongs to a trusted domain before fetching the key.
+
+To solve the lab, forge a JWT that gives you access to the admin panel at /admin, then delete the user carlos.
+
+You can log in to your own account using the following credentials: wiener:peter
+
+Tip
+We recommend familiarizing yourself with how to work with JWTs in Burp Suite before attempting this lab.
+```
+* Exploit:
