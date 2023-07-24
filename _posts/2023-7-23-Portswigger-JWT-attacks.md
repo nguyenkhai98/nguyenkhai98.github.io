@@ -85,10 +85,13 @@ Tạo key mới với giá trị base64 của `secret1` trong `JWT Editor Keys`
 Dùng key `secret1` để sign lại value của payload (thay đổi sub từ `wiener` thành `administrator`
 
 Truy cập vào link `/admin` với token vừa sign
+
 <img width="495" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/57e006e7-c86c-4814-9d27-910e8d251ff0">
 
 Thực hiện xóa user Carlos
+
 <img width="494" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/5e9b3520-2209-4083-ad49-5fa11b7a1c78">
 
 Lab Solved!
+
 <img width="588" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/e6ea0d3d-183e-41d4-bde1-e81fe093007c">
