@@ -174,3 +174,39 @@ Thực hiện xóa User carlos:
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/f21e2220-51d1-4451-8d86-4020968dbcf6)
 
+***
+
+## 6. Lab: JWT authentication bypass via kid header path traversal
+
+* Content:
+```
+This lab uses a JWT-based mechanism for handling sessions. In order to verify the signature, the server uses the kid parameter in JWT header to fetch the relevant key from its filesystem.
+
+To solve the lab, forge a JWT that gives you access to the admin panel at /admin, then delete the user carlos.
+
+You can log in to your own account using the following credentials: wiener:peter
+
+Tip
+We recommend familiarizing yourself with how to work with JWTs in Burp Suite before attempting this lab.
+```
+* Exploit:
+
+Thực hiện tạo Symmetric key với giá trị là `null` (Base64 của null là `AA==`)
+
+<img width="264" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/bb59b9aa-f93a-4f5f-9378-0169276f8acd">
+
+Thực hiện Sign lại JWT mới với key vừa tạo, chỉnh sửa đường dẫn `kid` về `../../../../../../../../dev/null`, `sub` thành `administrator` và gửi request => Đã truy cập được link `/admin`
+
+<img width="479" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/100ac7ed-bcf3-411e-96c8-f905f48cae00">
+
+Tiến hành xóa user carlos:
+
+<img width="472" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/4e216014-7310-456c-bea4-64715b43d264">
+
+Lab Solved!
+
+<img width="590" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/0a310314-189d-474f-8971-0d86e8670846">
+
+***
+
+
