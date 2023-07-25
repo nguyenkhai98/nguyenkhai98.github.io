@@ -209,4 +209,45 @@ Lab Solved!
 
 ***
 
+## 7. Lab: JWT authentication bypass via algorithm confusion
 
+* Content:
+```
+This lab uses a JWT-based mechanism for handling sessions. It uses a robust RSA key pair to sign and verify tokens. However, due to implementation flaws, this mechanism is vulnerable to algorithm confusion attacks.
+
+To solve the lab, first obtain the server's public key. This is exposed via a standard endpoint. Use this key to sign a modified session token that gives you access to the admin panel at /admin, then delete the user carlos.
+
+You can log in to your own account using the following credentials: wiener:peter
+
+Tip
+We recommend familiarizing yourself with how to work with JWTs in Burp Suite before attempting this lab.
+```
+* Exploit:
+
+Trong tab `JWT Editor Keys` tạo new RSA key:
+
+<img width="259" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/df315b87-0099-4e81-9732-e45c580cd01b">
+
+Chuyển sang định dạng pem và copy sang Tab `Decoder` để thực hiện `Base64 Encode`
+
+<img width="261" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/543b393d-2757-47f2-b989-eb8421cf4466">
+
+<img width="540" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/0c6ae2f0-d239-4585-a286-23b83a01d081">
+
+Sử dụng giá trị Encode ở bước trên, tạo 1 khóa Symmetric trong tab `JWT Editor Keys`
+
+<img width="639" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/b4e65f76-75d4-4732-82fd-0ed3af101118">
+
+Chỉnh payload `alg` thành `HS256`, `sub` thành `administrator` => Sign and Send Request
+
+<img width="232" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/5bcddfdb-6e92-4ea5-8233-133e4cf9e0ca">
+
+<img width="495" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/75598357-8d9d-46f6-8572-04cf7c098320">
+
+Xóa user carlos:
+
+<img width="493" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/c7e2c1b6-e0bf-40ec-b54d-cf4802397583">
+
+LAB Solved!
+
+<img width="582" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/8a1a6271-3215-4512-83eb-ba6a551765a1">
