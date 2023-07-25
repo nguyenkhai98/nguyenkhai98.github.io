@@ -251,3 +251,49 @@ Xóa user carlos:
 LAB Solved!
 
 <img width="582" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/8a1a6271-3215-4512-83eb-ba6a551765a1">
+
+***
+
+## 8. Lab: JWT authentication bypass via algorithm confusion with no exposed key
+
+* Content:
+```
+This lab uses a JWT-based mechanism for handling sessions. It uses a robust RSA key pair to sign and verify tokens. However, due to implementation flaws, this mechanism is vulnerable to algorithm confusion attacks.
+
+To solve the lab, first obtain the server's public key. Use this key to sign a modified session token that gives you access to the admin panel at /admin, then delete the user carlos.
+
+You can log in to your own account using the following credentials: wiener:peter
+
+Tip
+We recommend familiarizing yourself with how to work with JWTs in Burp Suite before attempting this lab.
+
+We have also provided a simplified version of the jwt_forgery.py tool to help you. For details on how to use this, see Deriving public keys from existing tokens.
+```
+* Exploit:
+
+Thực hiện login/logout đăng nhập lại 2 lần để lấy 2 valid JWT
+
+=> Sau đó sử dụng tool `portswigger/sig2n` để tìm ra giá trị X509 Key và Tampered JWT tương ứng:
+
+<img width="631" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/b21efaeb-00de-487c-a75a-944e28da45de">
+
+Thử gọi đến `/my-account` với Tampered JWT vừa tìm được => Xác nhận thấy mã trả về 200 và đã truy cập được => Key X509 trên là chính xác:
+
+<img width="480" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/47ffd30a-7a18-4141-832d-3d9de5f046ca">
+
+Thực hiện tạo ra 1 symmetric key mới với giá trị là giá trị Key X509 ở trên (Đã base64 encode sẵn)
+
+<img width="636" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/ced7bc23-1eaf-4c79-ac22-b37d746fb82d">
+
+Sửa payload gọi về `/admin`, `sub` thành `administrator`, `alg` thành `HS256` => Sign với key vừa tạo => Send Request:
+
+<img width="478" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/3528d1de-65cb-4f16-8de0-3b05a70b14cc">
+
+Thực hiện xóa user carlos:
+
+<img width="480" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/73fcc9ad-5b46-440e-b0a7-e92096fe29d5">
+
+Lab Solved!
+
+<img width="583" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/55069505-60f4-4c81-aa32-4f166646c41c">
+
