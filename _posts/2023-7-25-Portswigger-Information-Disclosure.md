@@ -40,4 +40,13 @@ Submit and Lab Solved!
 
 <img width="585" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/ba3a2a65-2216-4497-96e1-f7b5248c78bb">
 
+***
 
+## 3. 
+
+
+<img width="422" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/5da893f5-d550-416f-83c5-1d70101b328f">
+
+<img width="399" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/0d490608-c3aa-4a63-b902-d563584a6419">
+
+<img width="367" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/c9886130-8d05-4347-9453-a607b41c98d2">
