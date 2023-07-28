@@ -130,3 +130,66 @@ function handleResponse() {
 <img width="371" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/9f257b2e-8c2a-4e97-946d-59e21c2d90a9">
 
 Lab Solved! => User nào thấy nội dung comment trên sẽ bị đổi email thành `test@test.com`
+
+***
+
+## 5. Lab: Reflected XSS into HTML context with most tags and attributes blocked
+* Content:
+```
+This lab contains a reflected XSS vulnerability in the search functionality but uses a web application firewall (WAF) to protect against common XSS vectors.
+
+To solve the lab, perform a cross-site scripting attack that bypasses the WAF and calls the print() function.
+
+Note
+Your solution must not require any user interaction. Manually causing print() to be called in your own browser will not solve the lab.
+```
+* Exploit: 
+
+Ban đầu thử truyền thẻ img vào tính năng search thấy bị chặn
+
+<img width="474" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/bba85424-2af3-40a8-b7c3-8562edf70708">
+
+Chuyển request sang Intruder và đặt Positions như sau:
+
+<img width="585" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/831804af-e53e-4c76-9cca-25dc64d7f9e1">
+
+Phần Payloads thì copy all tags từ trang cheat sheet (`https://portswigger.net/web-security/cross-site-scripting/cheat-sheet`)
+
+<img width="579" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/d338b755-bba7-4b15-a1e1-7b9f27589aaa">
+
+Paste vào phần simple list:
+
+<img width="251" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/618c7545-aadf-46c5-9701-b86d2289b168">
+
+Thực hiện Start attack
+
+<img width="420" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/b36fc8c4-e010-4f72-a059-b8628d8e375d">
+
+=> Phát hiện có thẻ `body` là không bị chặn.
+
+Tiếp tục tìm xem Event handle nào bị chặn
+
+Chỉnh Positions:
+
+<img width="583" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/561156fe-cb4a-4550-a9c4-8359dc6c243e">
+
+Copy phần Events trong Cheat Sheet vào phần Payloads. => Thực hiện Start Attack:
+
+Xác định được ác Events sau không bị filter => Ta chọn sử dụng hàm `onresize`
+
+<img width="423" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/b80a547e-d010-4648-a112-b571061c575c">
+
+Sử dụng đoạn code sau trên Exploit Server
+
+`<iframe src="https://YOUR-LAB-ID.web-security-academy.net/?search=%22%3E%3Cbody%20onresize=print()%3E" onload=this.style.width='100px'>`
+
+Deliver to victim => Lab Solved!
+
+<img width="597" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/da3e1c91-33af-43b4-8c3b-a85f795d5295">
+
+***
+
+## 6. 
+
+
+
