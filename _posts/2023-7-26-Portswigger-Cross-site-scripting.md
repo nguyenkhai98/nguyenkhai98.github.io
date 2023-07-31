@@ -363,4 +363,32 @@ Nhấn Alt+X => LAB SOLVED!
 
 ***
 
-## 11. 
+## 12. Lab: Reflected XSS into a JavaScript string with single quote and backslash escaped
+
+* Content:
+```
+This lab contains a reflected cross-site scripting vulnerability in the search query tracking functionality. The reflection occurs inside a JavaScript string with single quotes and backslashes escaped.
+
+To solve this lab, perform a cross-site scripting attack that breaks out of the JavaScript string and calls the alert function.
+```
+* Exploit:
+
+Thực hiện search keywork `ndkhai`, quan sát trong source code
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/45f19e60-7aae-48ba-9c35-9dfab4b52981)
+
+Thử payload `ndkhai'; alert(1)` => Thấy ký tự `'` bị escape:
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/63675120-aa64-4461-a2f6-fc6b9d9411c3)
+
+Thử payload sau để thoát script cũ
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/58209569-bf1f-404c-ba61-0926bc1e4018)
+
+LAB SOLVED!
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/d0530965-f866-40e9-8171-d5a99e345698)
+
+***
+
+## 13. 
