@@ -417,5 +417,31 @@ LAB SOLVED
 
 ***
 
-## 14. 
+## 14. Lab: Reflected XSS into a JavaScript string with angle brackets and double quotes HTML-encoded and single quotes escaped
+
+* Content:
+```
+This lab contains a reflected cross-site scripting vulnerability in the search query tracking functionality where angle brackets and double are HTML encoded and single quotes are escaped.
+
+To solve this lab, perform a cross-site scripting attack that breaks out of the JavaScript string and calls the alert function.
+```
+* Exploit:
+
+Search với payload `ndkhai'123` => View Source code thấy dấu `'` đã bị escape:
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/476ec32e-8fe5-42c2-aa0d-2467bb64f30e)
+
+Tuy nhiên test dấu '\' thì thấy ko bị escape
+
+=> Áp dụng payload sau:
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/45d304ea-f73f-4f7f-9f9e-ab46cddedba8)
+
+Source code trở thành:
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/6789f694-abbc-4e2e-a9f7-105897a9d518)
+
+LAB SOLVED!
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/83dbfc1f-22ec-42c6-a668-182e4b85570a)
 
