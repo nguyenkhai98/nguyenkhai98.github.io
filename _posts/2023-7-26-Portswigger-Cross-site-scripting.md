@@ -391,4 +391,31 @@ LAB SOLVED!
 
 ***
 
-## 13. 
+## 13. Lab: Reflected XSS into a JavaScript string with angle brackets HTML encoded
+
+* Content:
+```
+This lab contains a reflected cross-site scripting vulnerability in the search query tracking functionality where angle brackets are encoded. The reflection occurs inside a JavaScript string. To solve this lab, perform a cross-site scripting attack that breaks out of the JavaScript string and calls the alert function.
+```
+* Exploit:
+
+Thử search `ndkhai` và quan sát trong source code
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/ecf9f8e6-4914-4a6a-aa47-b5b6647dbeff)
+
+Dùng payload sau:
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/7e810f71-fa0f-4255-a109-8ab2748f8faf)
+
+Source code trở thành
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/65645b29-e0ed-4876-bed3-91b73338a685)
+
+LAB SOLVED
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/df744634-aef1-4af4-8552-d877085b9c04)
+
+***
+
+## 14. 
+
