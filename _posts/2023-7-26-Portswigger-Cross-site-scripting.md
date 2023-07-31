@@ -318,3 +318,37 @@ This lab contains a stored cross-site scripting vulnerability in the comment fun
 ```
 * Exploit:
 
+Thực hiện Post Comment => Trường website điền `ndkhai.com`
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/e154fb03-643e-4a09-917e-3f18b842f4e8)
+
+Check source code xem nội dung `ndkhai.com` hiển thị ở vị trí nào => Thấy hiển thị trong thẻ href
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/19037da5-cf2c-40af-84e0-f847087e68e1)
+
+Thực hiện post comment khác với nội dung trong `website` là `javascript:alert(1)`
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/a065d5bc-83dd-4291-b80e-6cc946b97bde)
+
+LAB SOLVED!
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/440e9383-f8b2-411b-ba03-1ae262bfc8ee)
+
+***
+
+## 11. Lab: Reflected XSS in canonical link tag
+
+* Content:
+```
+This lab reflects user input in a canonical link tag and escapes angle brackets.
+
+To solve the lab, perform a cross-site scripting attack on the home page that injects an attribute that calls the alert function.
+
+To assist with your exploit, you can assume that the simulated user will press the following key combinations:
+
+ALT+SHIFT+X
+CTRL+ALT+X
+Alt+X
+Please note that the intended solution to this lab is only possible in Chrome.
+```
+* Exploit:
