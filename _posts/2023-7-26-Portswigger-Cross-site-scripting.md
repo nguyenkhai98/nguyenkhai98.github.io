@@ -471,3 +471,32 @@ Lab khó!
 
 2. Để thoát khỏi ngữ cảnh thì payload ban đầu truyền vào phải là `&'}`
 
+3. Tiếp tục, phải tìm cách trigger alert nhưng hiện căp dấu ngoặc `()` đã bị chặn => Tham khảo các cách trigger mà ko cần dùng cặp dấu ngoặc ở link `https://stackoverflow.com/questions/35949554/invoking-a-function-without-parentheses`
+
+=> Trong link trên có 1 cách là dùng ép kiểu toString
+
+<img width="358" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/08800d63-5835-4711-8e5d-88a3b43c3e0a">
+
+=> Như vậy nếu truyền vào `''+window` tức là sẽ gọi đến hàm toString của object `window`.
+
+Tiếp tục tìm cách run hàm alert khi toString được gọi. Có thể sử dụng arrow function như sau:
+
+`f=x=>{throw/**/onerror=alert,1337}` hoặc `f=x=>{{onerror=alert}throw/**/1337}`
+
+Sau đó gán hàm `toString` vào `f` bằng cách `toString=f`
+
+=> Payload lúc này sẽ trở thành `&'},f=x=>{throw/**/onerror=alert,1337},toString=f,''+window`
+
+4. Bổ sung thêm phần sau vào payload để không làm break cấu trúc javascript ban đầu của code: `,{x:'`
+
+=> Payload lúc này trở thành: `&'},f=x=>{throw/**/onerror=alert,1337},toString=f,''+window,{x:'`
+
+5. Send Request with payload. LAB SOLVED!
+
+<img width="593" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/b9bd2a53-005f-4bcf-9fd5-c341ba957c05">
+
+Khi ấn vào link "Back to Blog" sẽ hiện alert 
+
+<img width="294" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/0168a43b-8e56-4381-bd1f-29f78b5d4cbf">
+
+
