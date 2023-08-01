@@ -445,3 +445,29 @@ LAB SOLVED!
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/83dbfc1f-22ec-42c6-a668-182e4b85570a)
 
+***
+
+## 15. Lab: Reflected XSS in a JavaScript URL with some characters blocked
+
+* Content:
+```
+This lab reflects your input in a JavaScript URL, but all is not as it seems. This initially seems like a trivial challenge; however, the application is blocking some characters in an attempt to prevent XSS attacks.
+
+To solve the lab, perform a cross-site scripting attack that calls the alert function with the string 1337 contained somewhere in the alert message.
+```
+* Exploit:
+
+Lab khó! 
+
+1. Trước mắt cần tìm ra điểm bị Reflect XSS, từ Input => ánh xạ sang output phía trình duyệt
+
+=> Nếu ta request link `https://0ae2000d033abece834cbf73003f00be.web-security-academy.net/post?postId=1&a=a` thì phần URL sẽ ánh xạ hiển thị trong trình duyệt (Phần link href "Back to Blog")
+
+`<a href="javascript:fetch('/analytics', {method:'post',body:'/post%3fpostId%3d1%26a%3da'}).finally(_ => window.location = '/')">`
+
+<img width="592" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/4582ff08-71a1-49ff-8bca-a05de0aaf863">
+
+=> Đây chính là điểm để khai thác Reflect XSS.
+
+2. Để thoát khỏi ngữ cảnh thì payload ban đầu truyền vào phải là `&'}`
+
