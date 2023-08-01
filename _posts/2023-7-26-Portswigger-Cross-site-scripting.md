@@ -499,4 +499,31 @@ Khi ấn vào link "Back to Blog" sẽ hiện alert
 
 <img width="294" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/0168a43b-8e56-4381-bd1f-29f78b5d4cbf">
 
+***
+
+## 16. Lab: Stored XSS into onclick event with angle brackets and double quotes HTML-encoded and single quotes and backslash escaped
+
+* Content:
+```
+This lab contains a stored cross-site scripting vulnerability in the comment functionality.
+
+To solve this lab, submit a comment that calls the alert function when the comment author name is clicked.
+```
+* Exploit:
+
+Vị trí bị dính lỗi Stored XSS là ở phần `Website` của chức năng Comment
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/cab930a6-e025-4b5b-9ec4-c41e51213f52)
+
+Theo nội dung của đề bài thì cần bypass single quotes escaped => Ví dụ ta định sử dụng payload `http://ndkhai.com'-alert(document.domain)-'` thì payload sẽ trở thành `http://ndkhai.com&apos;-alert(document.domain)-&apos;`
+
+Trong burpsuite, khi post comment thì dấu `&` của `&apos;` sẽ bị hiểu nhầm là ký tự ngăn cách parameters => cần URL Encode `&` thành `%26` => Payload trở thành: `http://ndkhai.com%26apos;-alert(document.domain)-%26apos;`
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/38f39bba-fd1b-479e-a267-99f3f1288d1f)
+
+LAB SOLVED!
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/723112e0-e3fb-40f2-b85a-d323d53c14e9)
+
+
 
