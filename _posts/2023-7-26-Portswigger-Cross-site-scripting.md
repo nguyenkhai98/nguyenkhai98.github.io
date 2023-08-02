@@ -526,4 +526,24 @@ LAB SOLVED!
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/723112e0-e3fb-40f2-b85a-d323d53c14e9)
 
 
+***
+
+## 17. Lab: Reflected XSS into a template literal with angle brackets, single, double quotes, backslash and backticks Unicode-escaped
+
+* Content:
+```
+This lab contains a reflected cross-site scripting vulnerability in the search blog functionality. The reflection occurs inside a template string with angle brackets, single, and double quotes HTML encoded, and backticks escaped. To solve this lab, perform a cross-site scripting attack that calls the alert function inside the template string.
+```
+* Exploit:
+
+Vị trí chức năng search bị Reflected XSS, input truyền vào được hiển thị ra bên ngoài trình duyệt, có ngữ cảnh đặt bên trong backstick
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/d9728d18-bd0e-488e-a55b-ec4dc3e1ea3c)
+
+Có thể truyền thẳng javascript vào trong `${}`
+
+=> truyền payload `${alert(1)}` => LAB SOLVED!
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/d9ee6171-03f9-4a88-9b97-b25d24666a84)
+
 
