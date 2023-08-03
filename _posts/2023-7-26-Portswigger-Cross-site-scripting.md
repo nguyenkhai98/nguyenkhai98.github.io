@@ -546,4 +546,21 @@ Có thể truyền thẳng javascript vào trong `${}`
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/d9ee6171-03f9-4a88-9b97-b25d24666a84)
 
+***
 
+## 18. Lab: DOM XSS in document.write sink using source location.search
+
+* Content:
+```
+This lab contains a DOM-based cross-site scripting vulnerability in the search query tracking functionality. It uses the JavaScript document.write function, which writes data out to the page. The document.write function is called with data from location.search, which you can control using the website URL.
+
+To solve this lab, perform a cross-site scripting attack that calls the alert function.
+```
+* Exploit:
+
+Quan sát vị trí từ source -> sink ánh xạ vào trong thẻ `document.write('<img src="/resources/images/tracker.gif?searchTerms='+query+'">');` => Payload cần dùng `'">` để break out khỏi thẻ `img`
+=> Payload cuối cùng như sau: `'"><script>alert(1)</script>`
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/bf3ae250-d0e8-4eed-bfac-d84a1de8d48b)
+
+LAB SOLVED!
