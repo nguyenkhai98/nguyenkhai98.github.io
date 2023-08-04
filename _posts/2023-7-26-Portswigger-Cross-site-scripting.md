@@ -585,10 +585,11 @@ Code trên thực hiện tìm trong giá trị các parametter trên URL và tì
 
 => Payload: `aaa</option></select><script>alert(1)</script>`
 
-LAB SOLVED
+LAB SOLVED!
 
 <img width="237" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/23bb1dab-3586-45cd-a8df-241d2946a1fa">
 
 <img width="577" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/9c142a50-1849-4a95-b0b9-031a10a4d9a3">
 
+***
 
