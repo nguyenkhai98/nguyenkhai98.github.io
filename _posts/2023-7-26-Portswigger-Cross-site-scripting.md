@@ -588,7 +588,31 @@ Code trên thực hiện tìm trong giá trị các parametter trên URL và tì
 
 <img width="237" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/23bb1dab-3586-45cd-a8df-241d2946a1fa">
 
+LAB SOLVED!
+
 <img width="577" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/9c142a50-1849-4a95-b0b9-031a10a4d9a3">
 
+***
+
+## 20. Lab: DOM XSS in innerHTML sink using source location.search
+
+* Content:
+```
+This lab contains a DOM-based cross-site scripting vulnerability in the search blog functionality. It uses an innerHTML assignment, which changes the HTML contents of a div element, using data from location.search.
+
+To solve this lab, perform a cross-site scripting attack that calls the alert function.
+```
+* Exploit:
+
+Đoạn code javascript thực hiện nhận source bằng hàm `URLSearchParams(window.location.search)` và output ra trình duyệt bằng `innerHTML`
+
+<img width="394" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/332f74e5-baa4-407b-a16a-4a1126039d3c">
+
+
+Do `innerHTML` không nhận trực tiếp thẻ `<script>` => Payload sau: `<img%20src=""%20onerror=alert(1)>`
+
 LAB SOLVED!
+
+<img width="579" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/ac46a4a1-f9df-4861-9a2f-7ed8b6bd46a0">
+
 
