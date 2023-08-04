@@ -583,7 +583,7 @@ Code trên thực hiện tìm trong giá trị các parametter trên URL và tì
 
 => Cần breakout ra khỏi thẻ <select> và <option>
 
-=> Payload: `aaa</option></select><script>alert(1)</script>`
+=> Payload: ```aaa</option></select><script>alert(1)</script>```
 
 LAB SOLVED!
 
