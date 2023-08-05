@@ -639,4 +639,29 @@ Thay nội dung của parametter `returnPath` bằng `javascript:alert(1)` => LA
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/ca2e761e-ae8c-42f6-89e6-2782718109b3)
 
+***
+
+## 22. Lab: DOM XSS in jQuery selector sink using a hashchange event
+
+* Content:
+```
+This lab contains a DOM-based cross-site scripting vulnerability on the home page. It uses jQuery's $() selector function to auto-scroll to a given post, whose title is passed via the location.hash property.
+
+To solve the lab, deliver an exploit to the victim that calls the print() function in their browser.
+```
+* Exploit:
+
+Truy cập và homepage thì thấy ngay lập tức bị redirect sang 1 trang khác.
+
+=> Dùng burpsuite history đọc code trang Homepage => Thấy có đoạn jQuery dùng sink `${}` và event `hashchange` để scroll view:
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/a28cd03b-f78b-4fba-8700-e2a0736f874f)
+
+Craft 1 đoạn iframe như sau để gửi đến victim:
+
+`<iframe src="https://0a38007004e0e4978032cb29008f00aa.web-security-academy.net/#" onload="this.src+='<img src=1 onerror=print()>'">`
+
+Delivered to victim => LAB SOLVED!
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/970d0424-f73c-45cf-8fc2-9d1544e2aef5)
 
