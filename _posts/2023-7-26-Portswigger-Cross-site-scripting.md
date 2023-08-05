@@ -615,4 +615,28 @@ LAB SOLVED!
 
 <img width="579" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/ac46a4a1-f9df-4861-9a2f-7ed8b6bd46a0">
 
+***
+
+## 21. Lab: DOM XSS in jQuery anchor href attribute sink using location.search source
+
+* Content:
+```
+This lab contains a DOM-based cross-site scripting vulnerability in the submit feedback page. It uses the jQuery library's $ selector function to find an anchor element, and changes its href attribute using data from location.search.
+
+To solve this lab, make the "back" link alert document.cookie.
+```
+* Exploit:
+
+Tính năng submit feedback có paramtter `returnPath` dính lỗi XSS
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/3b5ddcbc-412c-4d30-8970-588e6b6933ba)
+
+Cụ thể phần link return path này được ánh xạ từ source -> Sink bằng hàm attr của jQuery
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/a09ad7e3-af23-4f0e-a4bb-846f2cb21c53)
+
+Thay nội dung của parametter `returnPath` bằng `javascript:alert(1)` => LAB SOLVED
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/ca2e761e-ae8c-42f6-89e6-2782718109b3)
+
 
