@@ -665,3 +665,21 @@ Delivered to victim => LAB SOLVED!
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/970d0424-f73c-45cf-8fc2-9d1544e2aef5)
 
+***
+
+## 23. Lab: DOM XSS in AngularJS expression with angle brackets and double quotes HTML-encoded
+
+* Content:
+```
+This lab contains a DOM-based cross-site scripting vulnerability in a AngularJS expression within the search functionality.
+
+AngularJS is a popular JavaScript library, which scans the contents of HTML nodes containing the ng-app attribute (also known as an AngularJS directive). When a directive is added to the HTML code, you can execute JavaScript expressions within double curly braces. This technique is useful when angle brackets are being encoded.
+
+To solve this lab, perform a cross-site scripting attack that executes an AngularJS expression and calls the alert function.
+```
+* Exploit:
+
+Quan sát thấy body có thuộc tính `ng-app` => Đang sử dụng `AngularJS`
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/6a22c0df-2c43-457f-89ca-de985321e07a)
+
