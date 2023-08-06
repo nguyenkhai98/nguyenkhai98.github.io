@@ -710,3 +710,32 @@ LAB SOLVED
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/b73c402a-6af4-4aa3-82ad-bf8b3d547657)
 
+***
+
+## 25. Lab: Stored DOM XSS
+
+* Content:
+```
+This lab demonstrates a stored DOM vulnerability in the blog comment functionality. To solve this lab, exploit this vulnerability to call the alert() function.
+```
+* Exploit:
+
+Xác định được đoạn code javascript xử lý chứa output sink nằm ở đường link sau: `resources/js/loadCommentsWithVulnerableEscapeHtml.js`
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/5d4ed34b-f148-4616-9479-ae35690e2167)
+
+Nghiên cứu đoạn code trên:
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/0e773073-acb3-4f91-967d-8be49160d04e)
+
+=> Ứng dụng sử dụng hàm `JSON.parse` để load dữ liệu comment (Đây là hàm an toàn hơn hàm `eval` ở bài trước)
+
+Ứng dụng cũng sử dụng hàm `escapeHTML` để escape value của author. Nội dung hàm này thực hiện `html.replace('<', '&lt;').replace('>', '&gt;')` => Tuy nhiên để ý thấy việc replace này chỉ thực hiện 1 lần (với ký tự `<` và `>` đầu tiên trong chuỗi)
+
+Ngoài ra do ứng dụng sử dụng `innerHTML` (không chấp nhận `<script>`) => Sử dụng payload: `<><img src="" onerror=alert(1)>`
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/7b19ae51-4f8c-4552-af1d-dd29fc31751e)
+
+LAB SOLVED!
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/af1bd1ee-754f-4f8c-b6bf-5efc23141570)
