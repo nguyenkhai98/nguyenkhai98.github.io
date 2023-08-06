@@ -1,4 +1,4 @@
-# [Portswigger] Cross-site scripting
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/a5f4e1d6-3187-499c-96d9-aeebe516f890)# [Portswigger] Cross-site scripting
 ***
 
 ## 1. Lab: Reflected XSS into HTML context with nothing encoded
@@ -689,4 +689,24 @@ LAB SOLVED!
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/8ea969a7-a3a3-4494-bc39-18ccdb2b9d28)
 
+***
+## 24. Lab: Reflected DOM XSS
+
+* Content:
+```
+This lab demonstrates a reflected DOM vulnerability. Reflected DOM vulnerabilities occur when the server-side application processes data from a request and echoes the data in the response. A script on the page then processes the reflected data in an unsafe way, ultimately writing it to a dangerous sink.
+
+To solve this lab, create an injection that calls the alert() function.
+```
+* Exploit:
+
+Dùng tool DOM Invader => Phát hiện giá trị search `bqz6b1hd` sẽ được xuất hiện ở sink eval với nội dung `var searchResultsObj = {"results":[],"searchTerm":"bqz6b1hd"}`
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/c446c1f0-455f-44a6-8ba5-8a4d4b5dd2e2)
+
+Dùng payload `\"-alert(1)} //` => Lúc này nội dung trong eval sẽ trở thành `var searchResultsObj = {"results":[],"searchTerm":"\\"-alert(1)} //"}` (Do ký tự `"` bị escaple thành `\"` nên thêm `\` vào phía đầu thì `\"` sẽ bị escape thành `\\"` và `"` sẽ được ghi nhận). Hai dấu `//` ở cuối để stripe out phần đuôi của dòng lệnh.
+
+LAB SOLVED
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/b73c402a-6af4-4aa3-82ad-bf8b3d547657)
 
