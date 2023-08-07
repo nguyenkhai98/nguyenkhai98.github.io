@@ -20,3 +20,35 @@ Thực hiện add sản phẩm `Lightweight l33t leather jacket` vào giỏ hàn
 Tiến hành thanh toán, mua sản phẩm => LAB SOLVED!
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/431a0997-6492-4392-8085-21d83071bb87)
+
+***
+## 2. Lab: 2FA broken logic
+
+* Content:
+```
+This lab's two-factor authentication is vulnerable due to its flawed logic. To solve the lab, access Carlos's account page.
+
+Your credentials: wiener:peter
+Victim's username: carlos
+You also have access to the email server to receive your 2FA verification code.
+```
+* Exploit:
+
+Theo dõi quá trình login qua burpsuite, phát hiện request verify mã PIN (2FA) có thể bị lợi dụng để login thẳng vào user carlos mà không cần biết mật khẩu.
+
+Chuyển gói tin request `/login2` sang Intruder và chuyển giá trị verify sang `carlos` như sau:
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/ca1716f4-024f-4710-a2b1-4e14da2e18ab)
+
+Setup payload như sau:
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/d548a0a3-584c-4918-b0d7-bb9e9b86891b)
+
+Start attack, xác nhận đã brute force đc mã 2FA đúng (trả về Response 302)
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/579b73c7-b71b-43a6-9dc2-5e41172db26f)
+
+LAB SOLVED!
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/d1561df2-9828-4604-84d1-f75371712dc5)
+
