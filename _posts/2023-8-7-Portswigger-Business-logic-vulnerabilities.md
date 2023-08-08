@@ -52,3 +52,35 @@ LAB SOLVED!
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/d1561df2-9828-4604-84d1-f75371712dc5)
 
+***
+## 3. Lab: High-level logic vulnerability
+
+* Content:
+```
+This lab doesn't adequately validate user input. You can exploit a logic flaw in its purchasing workflow to buy items for an unintended price. To solve the lab, buy a "Lightweight l33t leather jacket".
+
+You can log in to your own account using the following credentials: wiener:peter
+```
+* Exploit:
+Thực hiện ATC với Quanlity là giá trị âm
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/a654d61d-43cb-41db-bd69-fa75ba787071)
+
+Giao hiện giỏ hàng hiển thị: 
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/d1d03c55-9515-45dc-8e63-05605fd30c1e)
+
+Thực hiện place order thì bị báo lỗi tổng giá trị tiền không được nhỏ hơn 0
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/27e748f7-9fb4-4db9-8636-39ef14af7516)
+
+=> Mua thêm các loại hàng khác cho giá trị trong giỏ hàng nằm trong khoảng 0 -> 100$
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/6f7960a4-a9ce-48f9-9c9b-6a8f6a4c8396)
+
+Do đầu bải yêu cầu phải mua đc sản phẩm id 1, nên ta thay đổi 1 chút như sau => LAB SOLVED!
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/d9cb1d43-617d-4dac-8e1f-a5e156488b7f)
+
+
+
