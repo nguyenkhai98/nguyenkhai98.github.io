@@ -1,4 +1,4 @@
-# [Portswigger] Business logic vulnerabilities
+<img width="591" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/9b11ad54-d982-4789-b85e-00625f03a69b"># [Portswigger] Business logic vulnerabilities
 
 ***
 ## 1. Lab: Excessive trust in client-side controls
@@ -107,4 +107,38 @@ Place order and LAB SOLVED!
 
 <img width="582" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/d5b1b604-7c0e-4d8a-8301-db84d90ae61a">
 
+***
 
+## 5. Lab: Inconsistent handling of exceptional input
+
+* Content:
+```
+This lab doesn't adequately validate user input. You can exploit a logic flaw in its account registration process to gain access to administrative functionality. To solve the lab, access the admin panel and delete the user carlos.
+```
+* Exploit:
+
+Thực hiện đăng nhập và truy cập vào link `/admin` => Xác nhận chỉ user có email @dontwannacry.com mới được permit. 
+
+<img width="599" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/0e01d31d-2464-4082-8e59-8dc7557a3974">
+
+Thử thực hiện register với 1 email có địa chỉ dài. Ví dụ: `0123456789a0123456789b0123456789c0123456789d0123456789e0123456789f0123456789g0123456789h0123456789i0123456789j0123456789k0123456789l0123456789m0123456789n0123456789o0123456789p0123456789q0123456789q0123456789@exploit-0a3000f003b29db080aff2a701b80078.exploit-server.net` (268 ký tự)
+
+Sau khi login vào tài khoản trên thì thấy giá trị email chỉ còn như sau:
+
+<img width="591" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/17ca17df-af0e-456c-9928-77e2e30ecd36">
+
+Phần `it-server.net` đã bị cắt mất (13 ký tự) => Xác nhận địa chỉ email sẽ chỉ nhận vào 255 ký tự. Phần còn thừa sẽ bị truncate.
+
+Do vậy Craft một địa chỉ email như sau: `0123456789a0123456789b0123456789c0123456789d0123456789e0123456789f0123456789g0123456789h0123456789i0123456789j0123456789k0123456789l0123456789m0123456789n0123456789o0123456789p0123456789q0123456789q0123456789012345678901234567890123456789@dontwannacry.com.exploit-0a3000f003b29db080aff2a701b80078.exploit-server.net`
+
+Sau khi truncate, giá trị email của user vừa registry chính là thuộc domain `@dontwannacry.com`
+
+<img width="609" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/012ca238-5ad5-4458-8e99-67fbdb998d4b">
+
+Đã có thể truy cập vào link `/admin`
+
+<img width="594" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/d99073c5-36d2-48bf-bddb-88a31e70c76a">
+
+Xóa user carlos, LAB SOLVED!
+
+<img width="595" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/8233bd77-feaa-485c-b5ec-b6ecb0002e32">
