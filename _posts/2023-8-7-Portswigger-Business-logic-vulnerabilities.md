@@ -82,5 +82,29 @@ Do đầu bải yêu cầu phải mua đc sản phẩm id 1, nên ta thay đổi
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/d9cb1d43-617d-4dac-8e1f-a5e156488b7f)
 
+***
+## 4. Lab: Low-level logic flaw
+
+* Content:
+```
+This lab doesn't adequately validate user input. You can exploit a logic flaw in its purchasing workflow to buy items for an unintended price. To solve the lab, buy a "Lightweight l33t leather jacket".
+
+You can log in to your own account using the following credentials: wiener:peter
+```
+* Exploit:
+
+Quan sát hiện tượng khi add to card số lượng sản phẩm với giá trị price tổng của giỏ hàng đạt ngưỡng `2,147,483,647` thì khi tiếp tục add thêm sản phẩm vào giỏ hàng => Giá tổng sẽ quay lại giá trị âm là `-2,147,483,648` và dần dần reach lại về `0`
+
+<img width="374" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/60fac819-e8f7-407a-bf1c-16f95148729b">
+
+Khi này ta cần điều chỉnh để tổng price trong giỏ hàng đạt giá trị trong khoảng `0-100$`
+
+Nếu trong giỏ hàng có tổng cộng `32123` item `Lightweight "l33t" Leather Jacket` thì tổng price sẽ là `-$1221.96` => Lúc này ta cần add thêm các mặt hàng khác để thỏa mãn điều kiện `0-100$`. Ví dụ, thêm 13 cái `Hydrated Crackers`, ta có giá trị giỏ hàng như sau:
+
+<img width="371" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/b20ad906-009c-4637-8c4e-eaf94e9260c0">
+
+Place order and LAB SOLVED!
+
+<img width="582" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/d5b1b604-7c0e-4d8a-8301-db84d90ae61a">
 
 
