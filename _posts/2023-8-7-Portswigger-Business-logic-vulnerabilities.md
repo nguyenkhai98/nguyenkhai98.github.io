@@ -1,4 +1,4 @@
-<img width="591" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/9b11ad54-d982-4789-b85e-00625f03a69b"># [Portswigger] Business logic vulnerabilities
+# [Portswigger] Business logic vulnerabilities
 
 ***
 ## 1. Lab: Excessive trust in client-side controls
