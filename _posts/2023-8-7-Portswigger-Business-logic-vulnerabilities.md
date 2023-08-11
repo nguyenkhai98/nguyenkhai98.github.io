@@ -142,3 +142,17 @@ Sau khi truncate, giá trị email của user vừa registry chính là thuộc 
 Xóa user carlos, LAB SOLVED!
 
 <img width="595" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/8233bd77-feaa-485c-b5ec-b6ecb0002e32">
+
+***
+
+## 6. 
+
+* Content:
+```
+This lab's flawed logic allows arbitrary users to access administrative functionality that should only be available to company employees. To solve the lab, access the admin panel and delete the user carlos.
+```
+* Exploit:
+
+Bài này có chức năng update email mà ko cần xác minh => Update email có đuôi `@dontwannacry.com` là ok.
+
+<img width="596" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/0b39780d-e730-4973-8b19-383f702acb47">
