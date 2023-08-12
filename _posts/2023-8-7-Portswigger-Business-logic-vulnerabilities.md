@@ -145,7 +145,7 @@ Xóa user carlos, LAB SOLVED!
 
 ***
 
-## 6. 
+## 6. Lab: Inconsistent security controls
 
 * Content:
 ```
@@ -156,3 +156,22 @@ This lab's flawed logic allows arbitrary users to access administrative function
 Bài này có chức năng update email mà ko cần xác minh => Update email có đuôi `@dontwannacry.com` là ok.
 
 <img width="596" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/0b39780d-e730-4973-8b19-383f702acb47">
+
+## 7. Lab: Weak isolation on dual-use endpoint
+
+* Content:
+```
+This lab makes a flawed assumption about the user's privilege level based on their input. As a result, you can exploit the logic of its account management features to gain access to arbitrary users' accounts. To solve the lab, access the administrator account and delete the user carlos.
+
+You can log in to your own account using the following credentials: wiener:peter
+```
+* Exploit:
+
+Chức năng đổi password chỉ validate Current Password trên trình duyệt (Client Site) chứ ko validate phía Server Site => Dùng burpsuite đổi được password
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/b66253e3-8636-4be6-9fbf-c809b6197571)
+
+LAB SOLVED!
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/a08b601c-07c4-4d8d-87b2-2445a9fd9a1f)
+
