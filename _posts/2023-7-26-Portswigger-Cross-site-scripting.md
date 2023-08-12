@@ -1,4 +1,4 @@
-![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/a5f4e1d6-3187-499c-96d9-aeebe516f890)# [Portswigger] Cross-site scripting
+# [Portswigger] Cross-site scripting
 ***
 
 ## 1. Lab: Reflected XSS into HTML context with nothing encoded
