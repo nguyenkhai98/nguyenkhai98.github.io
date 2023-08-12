@@ -175,3 +175,31 @@ LAB SOLVED!
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/a08b601c-07c4-4d8d-87b2-2445a9fd9a1f)
 
+***
+
+## 8. Lab: Password reset broken logic
+
+* Content:
+```
+This lab's password reset functionality is vulnerable. To solve the lab, reset Carlos's password then log in and access his "My account" page.
+
+Your credentials: wiener:peter
+Victim's username: carlos
+```
+* Exploit:
+
+Thực hiện đăng nhập vào bằng credential `wiener:peter`
+
+Scan bằng tính năng `Discovery Content` của BurpSuite => Tìm ra link `/forgot-password`
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/bf5eb967-0ce9-4844-8337-0e90a6e8cb6f)
+
+Truy cập sử dụng link trên, bắt được request sau => Đổi username sang carlos
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/e3807935-4fb4-429a-a55e-b34d73551d0c)
+
+LAB SOLVED!
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/2c9c3808-3f88-4c0b-83ea-3e993c27d4ea)
+
+
