@@ -202,4 +202,34 @@ LAB SOLVED!
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/2c9c3808-3f88-4c0b-83ea-3e993c27d4ea)
 
+***
 
+## 9. Lab: Insufficient workflow validation
+
+* Content:
+```
+This lab makes flawed assumptions about the sequence of events in the purchasing workflow. To solve the lab, exploit this flaw to buy a "Lightweight l33t leather jacket".
+
+You can log in to your own account using the following credentials: wiener:peter
+```
+* Exploit:
+
+Thực hiện purchase 1 món hàng giá dưới 100$ => Xác nhận thấy khi mua thành công, ứng dụng sẽ gọi đến link: `GET /cart/order-confirmation?order-confirmed=true`
+
+=> Thực hiện add sản phẩm `Lightweight l33t leather jacket` vào giỏ hàng rồi call đến link `GET /cart/order-confirmation?order-confirmed=true`
+
+=> Lab Solved!
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/626531d8-595f-4b3d-b696-a99090c9a513)
+
+***
+
+## 10. Lab: Authentication bypass via flawed state machine
+
+* Content:
+```
+This lab makes flawed assumptions about the sequence of events in the login process. To solve the lab, exploit this flaw to bypass the lab's authentication, access the admin interface, and delete the user carlos.
+
+You can log in to your own account using the following credentials: wiener:peter
+```
+* Exploit:
