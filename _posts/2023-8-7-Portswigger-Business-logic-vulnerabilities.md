@@ -233,3 +233,9 @@ This lab makes flawed assumptions about the sequence of events in the login proc
 You can log in to your own account using the following credentials: wiener:peter
 ```
 * Exploit:
+
+Lab này giả định người dùng sau khi login sẽ gọi đến `POST /role-selector` để chọn role. => Ta thực hiện drop gói tin này => Mặc định hệ thống login với quyền administrator
+
+Sau đó thực hiện xóa user carlos, LAB SOLVED!
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/67548186-fd3d-4f43-8a34-f28d2fcf1cf7)
