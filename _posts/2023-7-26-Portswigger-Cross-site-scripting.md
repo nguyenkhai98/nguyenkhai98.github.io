@@ -481,7 +481,9 @@ Lab khó!
 
 Tiếp tục tìm cách run hàm alert khi toString được gọi. Có thể sử dụng arrow function như sau:
 
-```f=x=>{throw/**/onerror=alert,1337} hoặc f=x=>{{onerror=alert}throw/**/1337}```
+```javscript
+f=x=>{throw/**/onerror=alert,1337} hoặc f=x=>{{onerror=alert}throw/**/1337}
+```
 
 Sau đó gán hàm `toString` vào `f` bằng cách `toString=f`
 
