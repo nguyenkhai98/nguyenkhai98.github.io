@@ -239,3 +239,53 @@ Lab này giả định người dùng sau khi login sẽ gọi đến `POST /rol
 Sau đó thực hiện xóa user carlos, LAB SOLVED!
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/67548186-fd3d-4f43-8a34-f28d2fcf1cf7)
+
+***
+
+## 11. Lab: Infinite money logic flaw
+
+* Content:
+```
+This lab has a logic flaw in its purchasing workflow. To solve the lab, exploit this flaw to buy a "Lightweight l33t leather jacket".
+
+You can log in to your own account using the following credentials: wiener:peter
+```
+* Exploit:
+
+Bắt burp History phát hiện 1 vấn đề, khi sử dụng mã coupon giảm 30% để mua gift card 10$ => tài khoản sẽ bị trừ 7$. Sau đó dùng gift card vừa nhận được redeem => Tài khoản sẽ đc +10$. Khi này số dư tài khoản ban đầu từ 100$ sẽ thành 103$
+
+<img width="377" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/6c1b8045-32e5-4ce7-bdbb-762b2c6896b0">
+
+Vấn đề sai là mã coupon 30% được dùng không giới hạn => Khi ta tiếp tục quy trình như trên thì tài khoản tiếp tục được tăng thêm 3$
+
+=> Thực hiện bước để automatic quá trình trên:
+
+Trên Burpsuite, vào phần `Project options` => `Session Handling Rules` => `Add` => Phần Rule Action, chọn `Add` => Phần `Select Macro`, chọn `Add`. Một khung config macro hiện ra
+
+Tiếp tục chọn các request sẽ sử dụng trong macro này => Chọn lần lượt như sau: 
+`POST /cart`
+`POST /cart/coupon`
+`POST /cart/checkout`
+`GET /cart/order-confirmation?order-confirmed=true`
+`POST /gift-card`
+
+Sau khi đã chọn các request trên, click OK => Màn hình config hiện ra như sau:
+
+<img width="586" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/d1a67696-22a1-4de4-9461-4dafcd755066">
+
+Chọn request số 4 `GET /cart/order-confirmation?order-confirmed=true` => `Configure item` => Ở phần `Custom Parameter` chọn `Add` => Chọn `Parametter name` là `gift-card`, đồng thời high light phần mã gift card code hiện trong Response => Click OK.
+
+<img width="635" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/c59a6939-d80e-477b-ba71-8a086c53a1e2">
+
+Chọn Request số 5 `POST /gift-card`, ở phần `Parametter Handling`, chọn parametter name `gift-card` => Chọn setup như hình:
+
+<img width="379" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/ee9b5020-0885-4c54-b2f1-beaa60d39329">
+
+Thực hiện gửi request `GET /my-account` đến Intruder, cấu hình Attack type `sniper` và gửi 412 payload dạng `Null Payload`
+
+=> Sau khi thực hiện xong, tài khoản sẽ đủ tiền để mua `Lightweight l33t leather jacket` => LAB SOLVED!
+
+<img width="592" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/f5cd2a97-2f79-4ba0-920a-e93c200855ef">
+
+
+
