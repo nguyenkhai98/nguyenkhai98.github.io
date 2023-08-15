@@ -287,5 +287,15 @@ Thực hiện gửi request `GET /my-account` đến Intruder, cấu hình Attac
 
 <img width="592" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/f5cd2a97-2f79-4ba0-920a-e93c200855ef">
 
+***
 
+## 12. Lab: Authentication bypass via encryption oracle
+
+* Content:
+```
+This lab contains a logic flaw that exposes an encryption oracle to users. To solve the lab, exploit this flaw to gain access to the admin panel and delete the user carlos.
+
+You can log in to your own account using the following credentials: wiener:peter
+```
+* Exploit:
 
