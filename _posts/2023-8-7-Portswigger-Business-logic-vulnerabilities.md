@@ -299,3 +299,55 @@ You can log in to your own account using the following credentials: wiener:peter
 ```
 * Exploit:
 
+Thực hiện login vào tài khoản `wiener:peter` với tùy chọn `Stay logged in` => Theo dõi trên Burpsuite thấy rằng Session được set cookie tên là `stay-logged-in`
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/443acbd6-5037-4559-bbd3-a91a4aee716f)
+
+Thực hiện Post 1 comment với một email không hợp lệ trong bài viết bất kỳ thì thấy là Session được set thêm 1 biến cookie có tên là `notification` có cùng kiểu mã hóa giống cookie `stay-logged-in`
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/61382346-fee5-4154-bef1-3d2c7eb8d0df)
+
+Truy cập vào nội dung bài viết, ta thấy nội dung của cookie `notification` được reflect sang Response dưới dạng Clear text
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/e51d5ce7-256f-48d1-b52e-4ea7c21d750f)
+
+Tiếp tục thử copy nội dung value của cookie `stay-logged-in` sang `notification` để xem value giải mã ra có nội dung gì
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/2800d0b4-5a5f-450f-8fdd-fc4927c92ef6)
+
+ => Thấy giá trị là `wiener:1692285956470` => Ta thử fake sang tài khoản admin như sau => `administrator:1692285956470`
+
+ ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/12ad43e8-602c-4389-855b-3fb4bd25277d)
+
+Lấy giá trị thu được để hiển thị value ra bên ngoài => Nhận được giá trị là: `Invalid email address: administrator:1692285956470`
+
+ ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/376597f7-9137-4e20-b9a8-7b50e06371b9)
+
+Do ta chỉ mong muốn value `administrator:1692285956470` nên sẽ cần loại bỏ phần `Invalid email address: ` (gồm 23 characters) đi. Thực hiện chuyển phần value trong biến `notification` sang tab Decoder và thực hiện lần lượt như sau:
+
+Decode as URL => Decode as Base64 => Xóa đi 23 bytes => Encode as Base64 => Encode as URL
+
+Copy giá trị vừa thua được vào biến `notification` => Nhận được error báo `Input length must be multiple of 16 when decrypting with padded cipher`
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/555c60fa-c023-4449-b3c1-e9d8f9c62c58)
+
+Error là do ta xóa đi 23 character nên input đầu vào ko còn đảm bảo là tích của 16 => Lần này cần xóa đi 32 characters (16x2) => Thêm đoạn padding 9 ký tự bất kỳ vào như sau: `xxxxxxxxxadministrator:1692285956470`
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/e60c5991-cbb6-4f07-84ef-4e04160eeb69)
+
+Tiếp tục cho dữ liệu thu được vào Decoder như trước, lần này ta xóa đi 32 bytes:
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/b2bd376d-a956-4778-9d04-ec00ec283758)
+
+Lấy giá trị thu được cho vào biến `stay-logged-in`, đồng thời xóa giá trị Cookie Session ID nếu có đi => Đã vào được tài khoản administrator
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/8e6b8ee5-397a-4e31-9557-42e52f54caee)
+
+Thực hiện xóa user carlos => LAB SOLVED!
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/7b6a5bf5-3a0f-4710-aac9-089ebd8b4c79)
+
+
+
+
+
