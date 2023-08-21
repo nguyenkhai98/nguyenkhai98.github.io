@@ -1,4 +1,4 @@
-<img width="601" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/2164a526-55b3-40b7-b0a8-c30eeaa3c42e"># [Portswigger] Server-side template injection
+# [Portswigger] Server-side template injection
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/3e6623ba-fc70-4e15-8d32-364d0918eb22)
 
