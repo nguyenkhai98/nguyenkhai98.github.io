@@ -1,4 +1,4 @@
-# [Portswigger] Server-side template injection
+la# [Portswigger] Server-side template injection
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/3e6623ba-fc70-4e15-8d32-364d0918eb22)
 
@@ -69,4 +69,28 @@ Thực hiện post 1 comment lên và quan sát tên hiển thị => Thấy giá
 LAB SOLVED!
 
 <img width="593" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/310cf722-87fa-4eba-8da3-2ee23d43fe6f">
+
+***
+
+## 3. Lab: Server-side template injection using documentation
+
+* Content:
+```
+This lab is vulnerable to server-side template injection. To solve the lab, identify the template engine and use the documentation to work out how to execute arbitrary code, then delete the morale.txt file from Carlos's home directory.
+
+You can log in to your own account using the following credentials:
+
+content-manager:C0nt3ntM4n4g3r
+```
+* Exploit:
+
+Thực hiện edit mô tả một sản phẩm bất kỳ, thấy nội dung có chứa đoạn code template: `${product.stock} left of ${product.name} at ${product.price}.`
+
+<img width="384" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/e575e75a-e975-4899-a90c-7a32e7588c54">
+
+Thử nhập vào các payload nhằm trigger thông tin lỗi như: `${}`, `${7/0}`, `${foobar}`, `${7*7}`
+
+Thấy thông tin loại template sử dụng => `freemarker`
+
+<img width="600" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/466f1726-a520-4123-a559-89b09c21cb6c">
 
