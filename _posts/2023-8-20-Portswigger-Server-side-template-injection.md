@@ -173,3 +173,39 @@ Thay bằng command xóa file theo yêu cầu:
 <img width="580" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/61fa6cbf-a6a0-4308-b14d-c183b4685d63">
 
 LAB SOLVED!
+
+***
+
+## 5. Lab: Server-side template injection with information disclosure via user-supplied objects
+
+* Content:
+```
+This lab is vulnerable to server-side template injection due to the way an object is being passed into the template. This vulnerability can be exploited to access sensitive data.
+
+To solve the lab, steal and submit the framework's secret key.
+
+You can log in to your own account using the following credentials:
+
+content-manager:C0nt3ntM4n4g3r
+```
+* Exploit:
+
+Vị trí mắc lỗi ghi nhận tại tính năng edit mô tả sản phẩm:
+
+<img width="377" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/b4176f99-c8ad-46ef-adbe-cd17c3ea7902">
+
+=> Truyền vào payload `{{7/0}}` => Phát hiện ra template engine sử dụng là `django`
+
+<img width="582" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/fe3fb207-944b-4a49-91bb-f595cb37b8df">
+
+=> Truyền vào payload `{% debugs %}` để list ra các objects và properites sử dụng trong Template
+
+=> Truyền vào payload `{{settings.SECRET_KEY}}`
+
+<img width="588" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/b7c94d2b-d8fd-4bbd-a709-d28294238579">
+
+Submit => LAB SOLVED!
+
+<img width="578" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/5a7e5fd7-d0c2-4c43-a306-516d558c08e5">
+
+
