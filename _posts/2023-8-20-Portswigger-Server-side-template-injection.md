@@ -112,10 +112,12 @@ LAB SOLVED!
 
 ***
 
-## 4. 
+## 4. Lab: Server-side template injection in an unknown language with a documented exploit
 
 * Content:
-
+```
+This lab is vulnerable to server-side template injection. To solve the lab, identify the template engine and find a documented exploit online that you can use to execute arbitrary code, then delete the morale.txt file from Carlos's home directory.
+```
 * Exploit:
 
 Ban đầu thử nghiệm payload: `{{7/0}}` => Sinh ra exception:
@@ -198,7 +200,8 @@ Vị trí mắc lỗi ghi nhận tại tính năng edit mô tả sản phẩm:
 
 <img width="582" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/fe3fb207-944b-4a49-91bb-f595cb37b8df">
 
-=> Truyền vào payload `{% debugs %}` để list ra các objects và properites sử dụng trong Template
+=> Truyền vào payload <img width="55" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/2fa66a9e-5985-49ec-916e-f2d3677489bd">
+ để list ra các objects và properites sử dụng trong Template
 
 => Truyền vào payload `{{settings.SECRET_KEY}}`
 
