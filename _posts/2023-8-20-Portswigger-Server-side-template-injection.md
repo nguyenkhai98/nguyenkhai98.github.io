@@ -270,7 +270,28 @@ Detect Template Engine => `twig`
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/56c4f3f2-158e-4b22-8c4c-4fe7048ae502)
 
-Upload 1 file định dạng sai lên phần avatar, ta thấy thông báo lỗi lộ thông tin phần xử lý upload avatar nằm ở link `/home/carlos/User.php`
+Upload 1 file định dạng sai lên phần avatar, ta thấy thông báo lỗi lộ thông tin phần xử lý upload avatar nằm ở link `/home/carlos/User.php`. Ngoài ra phát hiện ra hàm xử lý việc upload này là `User->setAvatar('/tmp/pinning.js', 'text/javascript')`
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/1acd74b0-eadb-4440-87d1-1f87c73b2536)
 
+=> Thực hiện lợi dụng lỗ hổng SSTI để gọi hàm setAvatar trỏ về nội dung file `/home/carlos/User.php`
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/a0e37c5d-9547-4e70-aab9-71d0628585c0)
+
+=> Tiếp tục truy cập vào link `/avatar?avatar=wiener` để lấy về nội dung của file `/home/carlos/User.php`
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/db268912-c8ee-40d9-8814-40ba5d957dda)
+
+Phát hiện ra có hàm User.gdprDelete() sẽ thực hiện xóa file avatar => Lợi dụng như sau:
+
+- Set avatar thành nội dung file cần xóa: `/home/carlos/.ssh/id_rsa` => Vào lại phần comment để trigger hàm được gọi
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/557ea4c6-c5be-431e-ad38-bd9ca2832a20)
+
+- Thực hiện gọi hàm xóa file avatar => Vào lại phần comment để trigger hàm được gọi
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/4c1577cb-0cc4-413c-b31a-d95eed91c67f)
+
+LAB SOLVED!
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/b9f4edf5-9a14-4596-a5cb-f7bd3569043a)
