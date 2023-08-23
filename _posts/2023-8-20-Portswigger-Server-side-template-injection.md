@@ -249,4 +249,28 @@ LAB SOLVED!
 
 ![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/ce7f2105-214f-4787-9f0e-2a936442f3f8)
 
+***
+
+## 7. Lab: Server-side template injection with a custom exploit
+
+* Content:
+```
+This lab is vulnerable to server-side template injection. To solve the lab, create a custom exploit to delete the file /.ssh/id_rsa from Carlos's home directory.
+
+You can log in to your own account using the following credentials: wiener:peter
+
+Warning
+As with many high-severity vulnerabilities, experimenting with server-side template injection can be dangerous. If you're not careful when invoking methods, it is possible to damage your instance of the lab, which could make it unsolvable. If this happens, you will need to wait 20 minutes until your lab session resets.
+```
+* Exploit:
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/3a81383e-f079-4bcc-9470-c489b13fa25b)
+
+Detect Template Engine => `twig`
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/56c4f3f2-158e-4b22-8c4c-4fe7048ae502)
+
+Upload 1 file định dạng sai lên phần avatar, ta thấy thông báo lỗi lộ thông tin phần xử lý upload avatar nằm ở link `/home/carlos/User.php`
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/1acd74b0-eadb-4440-87d1-1f87c73b2536)
 
