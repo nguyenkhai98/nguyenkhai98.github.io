@@ -121,3 +121,25 @@ Tuy nhiên giả định rằng user carlos sẽ click vào mọi link nhận đ
 
 <img width="580" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/a15958d5-1c89-4bc9-a406-f235f12e263e">
 
+***
+
+## 4. Lab: Host header authentication bypass
+
+* Content:
+```
+This lab makes an assumption about the privilege level of the user based on the HTTP Host header.
+
+To solve the lab, access the admin panel and delete the user carlos.
+```
+* Exploit:
+
+Truy cập vào link `/admin` và đổi Host Header thành `localhost` => Truy cập thành công
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/272301dc-987d-4927-8ec3-787a54532218)
+
+Thực hiện xóa user carlos => LAB SOLVED!
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/57b95444-b694-4ca5-b874-3612185e43af)
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/94b52da5-1be8-4de1-80e6-05b479072572)
+
