@@ -49,3 +49,15 @@ We recommend that you install the InQL extension before attempting this lab. InQ
 For more information on using InQL, see Working with GraphQL in Burp Suite.
 ```
 * Exploit:
+
+Thực hiện truy cập vào tính năng `My Account` => Bắt request trên Burp History và sử dụng InQL Scanner:
+
+<img width="524" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/c3b3299c-8f37-4ace-b072-8d9d8e9f4d94">
+
+Phát hiện 1 query tên là "getUser" => Sử dụng Query này với id = 1 => PHát hiện user/pass của administrator
+
+<img width="551" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/836f35f0-dd74-4196-9621-a75f79a28555">
+
+LAB SOLVED!
+
+<img width="578" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/9a0103c0-71bf-483a-8ecd-0b77d4bdbd57">
